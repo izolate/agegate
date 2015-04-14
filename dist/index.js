@@ -14,50 +14,33 @@ var _data = require('./data');
 
 var _data2 = _interopRequireWildcard(_data);
 
-// Default configuration
-var defaults = {
-  html: ['input', 'p', 'select'],
-  year: function year() {
-    // calculate 18 years (216 months) prior to today
-    var d = new Date();
-    d.setMonth(d.getMonth() - 216);
-    return d.getFullYear();
-  }
-};
-
 var AgeGate = (function () {
-  function AgeGate(opt) {
-    var _this = this;
-
+  function AgeGate(opts) {
     _classCallCheck(this, AgeGate);
 
     // set defaults
     this.data = _data2['default'];
-    this.defaults = {
-      year: opt.startingDate || defaults.year()
-    };
-
-    if (typeof opt.form === 'undefined') throw new ReferenceError('No form HTML element defined');else this.form = opt.form;
-
-    // ensure form contains required HTML elements
-    defaults.html.forEach(function (elem) {
-      try {
-        _this.form.querySelector(elem);
-      } catch (err) {
-        throw new ReferenceError('<form> doesn\'t contain <' + elem + '> element');
-      }
-    });
+    this._opts = opts;
   }
 
   _createClass(AgeGate, [{
     key: 'render',
     value: function render() {
-      console.log('showing ageGate');
-      this.populateData();
+      var _this = this;
+
+      console.log('AgeGate initialized');
+
+      [// ensure form contains required HTML Elements
+      'input[name="year"]', 'input[name="month"]', 'input[name="day"]', 'select[name="country"]', 'button'].forEach(function (elem) {
+        if (!_this._opts.form.querySelector(elem)) throw new ReferenceError('<form> doesn\'t contain <' + elem + '> Element');
+      });
+
+      this.populateCountryData();
+      this._opts.form.addEventListener('submit', this.submit.bind(this));
     }
   }, {
-    key: 'populateData',
-    value: function populateData() {
+    key: 'populateCountryData',
+    value: function populateCountryData() {
       var _this2 = this;
 
       // select
@@ -68,20 +51,50 @@ var AgeGate = (function () {
         for (var i = 0; i < _data2['default'][continent].length; i++) {
           var option = document.createElement('option'),
               country = _data2['default'][continent][i];
+
+          for (var attr in country) {
+            option.dataset[attr] = country[attr];
+          }
           option.value = country.code;
           option.textContent = country.name;
-          option.dataset.code = country.code;
-          option.dataset.name = country.name;
-          option.dataset.age = country.age;
           group.appendChild(option);
         }
 
-        _this2.form.querySelector('select').appendChild(group);
+        _this2._opts.form.querySelector('select').appendChild(group);
       });
+    }
+  }, {
+    key: 'submit',
 
-      // input
-      console.log(this.form.querySelector('input'));
-      this.form.querySelector('input').value = this.defaults.year;
+    /*
+     * Submit the form
+     */
+    value: function submit(e) {
+      e.preventDefault();
+
+      var form = e.srcElement,
+          elems = form.elements,
+          data = {};
+
+      // serialize form data
+      for (var i = 0; i < elems.length; i++) {
+        switch (elems[i].tagName) {
+          case 'INPUT':
+          case 'SELECT':
+            data[elems[i].name] = elems[i].value;
+            break;
+          default:
+            break;
+        }
+      }
+
+      this.validate(data);
+    }
+  }, {
+    key: 'validate',
+    value: function validate(data) {
+      console.log(data);
+      this._opts.callback(null, data);
     }
   }]);
 

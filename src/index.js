@@ -1,46 +1,28 @@
 import data from './data';
 
-// Default configuration
-let defaults = {
-  html: ['input', 'p', 'select'],
-  year: () => {
-    // calculate 18 years (216 months) prior to today
-    let d = new Date();
-    d.setMonth(d.getMonth() - 216);
-    return d.getFullYear();
-  }
-};
-
 class AgeGate {
-  constructor(opt) {
+  constructor(opts) {
     // set defaults
     this.data = data;
-    this.defaults = {
-      year: opt.startingDate || defaults.year()
-    };
-
-    if ( typeof opt.form === 'undefined' )
-      throw new ReferenceError('No form HTML element defined');
-    else
-      this.form = opt.form;
-
-    // ensure form contains required HTML elements
-    defaults.html.forEach(elem => {
-      try {
-        this.form.querySelector(elem);
-      }
-      catch(err) {
-        throw new ReferenceError(`<form> doesn't contain <${elem}> element`);
-      }
-    });
+    this._opts = opts;
   }
 
   render() {
-    console.log('showing ageGate');
-    this.populateData();
+    console.log('AgeGate initialized');
+
+    [ // ensure form contains required HTML Elements
+      'input[name="year"]', 'input[name="month"]', 'input[name="day"]',
+      'select[name="country"]', 'button'
+    ].forEach(elem => {
+      if (!this._opts.form.querySelector(elem))
+        throw new ReferenceError(`<form> doesn't contain <${elem}> Element`);
+    });
+
+    this.populateCountryData();
+    this._opts.form.addEventListener('submit', this.submit.bind(this));
   }
 
-  populateData() {
+  populateCountryData() {
     // select
     Object.keys(data).forEach(continent => {
       let group = document.createElement('optgroup');
@@ -49,23 +31,45 @@ class AgeGate {
       for (let i=0; i<data[continent].length; i++) {
         let option = document.createElement('option'),
             country = data[continent][i];
+
+        for (let attr in country) {
+          option.dataset[attr] = country[attr];
+        }
         option.value = country.code;
         option.textContent = country.name;
-        option.dataset.code = country.code;
-        option.dataset.name = country.name;
-        option.dataset.age = country.age;
         group.appendChild(option);
       }
 
-      this.form
-        .querySelector('select')
-        .appendChild(group);
+      this._opts.form.querySelector('select').appendChild(group);
     });
+  }
 
-    // input
-    this.form
-      .querySelector('input')
-      .value = this.defaults.year;
+  /*
+   * Submit the form
+   */
+  submit(e) {
+    e.preventDefault();
+
+    let form = e.srcElement, elems = form.elements, data = {};
+
+    // serialize form data
+    for (let i=0; i<elems.length; i++) {
+      switch (elems[i].tagName) {
+        case 'INPUT':
+        case 'SELECT':
+          data[elems[i].name] = elems[i].value;
+          break;
+        default:
+          break;
+      }
+    }
+
+    this.validate(data);
+  }
+
+  validate(data) {
+    console.log(data);
+    this._opts.callback(null, data);
   }
 }
 

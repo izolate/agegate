@@ -16,10 +16,15 @@ html(lang='en')
     form.agegate
       label
         h2 Select your country
-        select.agegate__select
+        select(name='country')
       label
-        h2 Enter your birth year
-        input.agegate__input(type='number', name='age', value='1959')
+        h2 Enter your DOB
+
+        - var currentYear = new Date().getFullYear()
+        input(type='number', name='year', placeholder='YYYY', min=currentYear-120 max=currentYear, value='1986')
+        input(type='number', name='month', placeholder='MM', min=1, max=12, value='08')
+        input(type='number', name='day', placeholder='DD', min=1, max=31, value='14')
+
       button(type='submit') Enter
 
     script(src='agegate-compiled.js')
