@@ -51,22 +51,20 @@ class AgeGate {
     e.preventDefault();
 
     // serialize form data
-    let form = e.srcElement,
-        elems = form.elements,
-        formData = {};
+    let form = e.srcElement, elems = form.elements, data = {};
 
     for (let i=0; i<elems.length; i++) {
       switch (elems[i].tagName) {
         case 'INPUT':
         case 'SELECT':
-          formData[elems[i].name] = elems[i].value;
+          data[elems[i].name] = elems[i].value;
           break;
         default:
           break;
       }
     }
 
-    this.validate(formData);
+    this.validate(data);
   }
 
   validate(data) {
