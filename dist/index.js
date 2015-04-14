@@ -36,12 +36,12 @@ var AgeGate = (function () {
     key: 'render',
     value: function render() {
       console.log('AgeGate initialized');
-      this.populateCountryData();
-      this.options.form.addEventListener('submit', this.submit.bind(this));
+      this.populateSelectElement();
+      this.options.form.addEventListener('submit', this.submitForm.bind(this));
     }
   }, {
-    key: 'populateCountryData',
-    value: function populateCountryData() {
+    key: 'populateSelectElement',
+    value: function populateSelectElement() {
       var _this2 = this;
 
       // select
@@ -65,20 +65,20 @@ var AgeGate = (function () {
       });
     }
   }, {
-    key: 'submit',
+    key: 'submitForm',
 
     /*
      * Submit the form
      */
-    value: function submit(e) {
+    value: function submitForm(e) {
       e.preventDefault();
 
+      // serialize form data
       var form = e.srcElement,
           elems = form.elements,
-          formData = {};
-
-      // serialize form data
-      for (var i = 0; i < elems.length; i++) {
+          formData = {},
+          i = 0;
+      for (i; i < elems.length; i++) {
         switch (elems[i].tagName) {
           case 'INPUT':
           case 'SELECT':

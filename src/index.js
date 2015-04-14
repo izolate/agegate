@@ -14,11 +14,11 @@ class AgeGate {
 
   render() {
     console.log('AgeGate initialized');
-    this.populateCountryData();
-    this.options.form.addEventListener('submit', this.submit.bind(this));
+    this.populateSelectElement();
+    this.options.form.addEventListener('submit', this.submitForm.bind(this));
   }
 
-  populateCountryData() {
+  populateSelectElement() {
     // select
     Object.keys(data).forEach(continent => {
       let group = document.createElement('optgroup');
@@ -43,13 +43,12 @@ class AgeGate {
   /*
    * Submit the form
    */
-  submit(e) {
+  submitForm(e) {
     e.preventDefault();
 
-    let form = e.srcElement, elems = form.elements, formData = {};
-
     // serialize form data
-    for (let i=0; i<elems.length; i++) {
+    let form = e.srcElement, elems = form.elements, formData = {}, i=0;
+    for (i; i<elems.length; i++) {
       switch (elems[i].tagName) {
         case 'INPUT':
         case 'SELECT':
