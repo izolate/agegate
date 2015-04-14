@@ -3,23 +3,19 @@ import data from './data';
 class AgeGate {
   constructor(opts) {
     // set defaults
-    this.data = data;
-    this._opts = opts;
+    this.options = opts;
+    this.ages = {};
+
+    // convert age data to usable key => value
+    for (let cont in data) {
+      data[cont].map(country => this.ages[country.code] = country.age);
+    }
   }
 
   render() {
     console.log('AgeGate initialized');
-
-    [ // ensure form contains required HTML Elements
-      'input[name="year"]', 'input[name="month"]', 'input[name="day"]',
-      'select[name="country"]', 'button'
-    ].forEach(elem => {
-      if (!this._opts.form.querySelector(elem))
-        throw new ReferenceError(`<form> doesn't contain <${elem}> Element`);
-    });
-
     this.populateCountryData();
-    this._opts.form.addEventListener('submit', this.submit.bind(this));
+    this.options.form.addEventListener('submit', this.submit.bind(this));
   }
 
   populateCountryData() {
@@ -40,7 +36,7 @@ class AgeGate {
         group.appendChild(option);
       }
 
-      this._opts.form.querySelector('select').appendChild(group);
+      this.options.form.querySelector('select').appendChild(group);
     });
   }
 
@@ -50,26 +46,26 @@ class AgeGate {
   submit(e) {
     e.preventDefault();
 
-    let form = e.srcElement, elems = form.elements, data = {};
+    let form = e.srcElement, elems = form.elements, formData = {};
 
     // serialize form data
     for (let i=0; i<elems.length; i++) {
       switch (elems[i].tagName) {
         case 'INPUT':
         case 'SELECT':
-          data[elems[i].name] = elems[i].value;
+          formData[elems[i].name] = elems[i].value;
           break;
         default:
           break;
       }
     }
 
-    this.validate(data);
+    this.validate(formData);
   }
 
   validate(data) {
     console.log(data);
-    this._opts.callback(null, data);
+    this.options.callback(null, data);
   }
 }
 
