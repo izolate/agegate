@@ -18,12 +18,15 @@ class AgeGate {
     this.options.form.addEventListener('submit', this.submitForm.bind(this));
   }
 
+  /**
+   * Add countries to <select> element
+   */
   populateSelectElement() {
-    // select
     Object.keys(data).forEach(continent => {
       let group = document.createElement('optgroup');
       group.label = continent;
 
+      // create the <option> for each country
       for (let i=0; i<data[continent].length; i++) {
         let option = document.createElement('option'),
             country = data[continent][i];
@@ -40,15 +43,19 @@ class AgeGate {
     });
   }
 
-  /*
-   * Submit the form
+  /**
+   * Serialize form data on submit,
+   * and pass onto validation
    */
   submitForm(e) {
     e.preventDefault();
 
     // serialize form data
-    let form = e.srcElement, elems = form.elements, formData = {}, i=0;
-    for (i; i<elems.length; i++) {
+    let form = e.srcElement,
+        elems = form.elements,
+        formData = {};
+
+    for (let i=0; i<elems.length; i++) {
       switch (elems[i].tagName) {
         case 'INPUT':
         case 'SELECT':

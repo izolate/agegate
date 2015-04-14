@@ -41,14 +41,18 @@ var AgeGate = (function () {
     }
   }, {
     key: 'populateSelectElement',
+
+    /**
+     * Add countries to <select> element
+     */
     value: function populateSelectElement() {
       var _this2 = this;
 
-      // select
       Object.keys(_data2['default']).forEach(function (continent) {
         var group = document.createElement('optgroup');
         group.label = continent;
 
+        // create the <option> for each country
         for (var i = 0; i < _data2['default'][continent].length; i++) {
           var option = document.createElement('option'),
               country = _data2['default'][continent][i];
@@ -67,8 +71,9 @@ var AgeGate = (function () {
   }, {
     key: 'submitForm',
 
-    /*
-     * Submit the form
+    /**
+     * Serialize form data on submit,
+     * and pass onto validation
      */
     value: function submitForm(e) {
       e.preventDefault();
@@ -76,9 +81,9 @@ var AgeGate = (function () {
       // serialize form data
       var form = e.srcElement,
           elems = form.elements,
-          formData = {},
-          i = 0;
-      for (i; i < elems.length; i++) {
+          formData = {};
+
+      for (var i = 0; i < elems.length; i++) {
         switch (elems[i].tagName) {
           case 'INPUT':
           case 'SELECT':
