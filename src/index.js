@@ -1,20 +1,21 @@
 import data from './data';
+import cookies from './cookies';
 
 class AgeGate {
   constructor(opts) {
     // set defaults
-    this.options = opts;
-    this.ages = {};
+    this.defaults = opts;
+    this.countryAges = {};
 
     // convert age data to usable key => value
     for (let cont in data) {
-      data[cont].map(country => this.ages[country.code] = country.age);
+      data[cont].map(country => this.countryAges[country.code] = country.age);
     }
   }
 
   render() {
     this.populate();
-    this.options.form.addEventListener('submit', this.submit.bind(this));
+    this.defaults.form.addEventListener('submit', this.submit.bind(this));
   }
 
   /**
@@ -38,7 +39,7 @@ class AgeGate {
         group.appendChild(option);
       }
 
-      this.options.form.querySelector('select').appendChild(group);
+      this.defaults.form.querySelector('select').appendChild(group);
     });
   }
 
@@ -66,20 +67,38 @@ class AgeGate {
     this.verify(data);
   }
 
+  // getter: legal age
+  get age() {
+    return this.defaults.age || 0;
+  }
+
   /**
-   * Calculate the age and issue callback with the verdict
+   * Calculate the age and insert cookie if needed
    * Age calculator by Kristoffer Dorph
    * http://stackoverflow.com/a/15555947/362136
    */
   verify(data) {
+    // age
     let dateString = [data.year, data.month, data.day].join('/');
     let age = ~~((Date.now() - +new Date(dateString)) / (31557600000));
 
-    if (age >= this.ages[data.country])
-      this.options.callback(null);
+    // cookie
+    if ( data.remember && data.remember === 'on' )
+      this.createCookie();
+
+    if (age >= this.countryAges[data.country])
+      this.defaults.callback(null);
     else
-      this.options.callback(new Error('Age verification failed'));
+      this.defaults.callback(new Error('Age verification failed'));
   }
+
+  /**
+   * Create a cookie to remember age
+   */
+  createCookie(expiry=Infinity) {
+    cookies.setItem('old_enough', true, expiry);
+  }
+
 }
 
 export default AgeGate;

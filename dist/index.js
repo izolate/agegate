@@ -14,6 +14,10 @@ var _data = require('./data');
 
 var _data2 = _interopRequireWildcard(_data);
 
+var _cookies = require('./cookies');
+
+var _cookies2 = _interopRequireWildcard(_cookies);
+
 var AgeGate = (function () {
   function AgeGate(opts) {
     var _this = this;
@@ -21,7 +25,7 @@ var AgeGate = (function () {
     _classCallCheck(this, AgeGate);
 
     // set defaults
-    this.options = opts;
+    this.defaults = opts;
     this.ages = {};
 
     // convert age data to usable key => value
@@ -36,7 +40,7 @@ var AgeGate = (function () {
     key: 'render',
     value: function render() {
       this.populate();
-      this.options.form.addEventListener('submit', this.submit.bind(this));
+      this.defaults.form.addEventListener('submit', this.submit.bind(this));
     }
   }, {
     key: 'populate',
@@ -64,7 +68,7 @@ var AgeGate = (function () {
           group.appendChild(option);
         }
 
-        _this2.options.form.querySelector('select').appendChild(group);
+        _this2.defaults.form.querySelector('select').appendChild(group);
       });
     }
   }, {
@@ -99,15 +103,30 @@ var AgeGate = (function () {
     key: 'verify',
 
     /**
-     * Calculate the age and issue callback with the verdict
+     * Calculate the age and insert cookie if needed
      * Age calculator by Kristoffer Dorph
      * http://stackoverflow.com/a/15555947/362136
      */
     value: function verify(data) {
+      // age
       var dateString = [data.year, data.month, data.day].join('/');
       var age = ~ ~((Date.now() - +new Date(dateString)) / 31557600000);
 
-      if (age >= this.ages[data.country]) this.options.callback(null);else this.options.callback(new Error('Age verification failed'));
+      // cookie
+      if (data.remember && data.remember === 'on') this.createCookie();
+
+      if (age >= this.ages[data.country]) this.defaults.callback(null);else this.defaults.callback(new Error('Age verification failed'));
+    }
+  }, {
+    key: 'createCookie',
+
+    /**
+     * Create a cookie to remember age
+     */
+    value: function createCookie() {
+      var expiry = arguments[0] === undefined ? Infinity : arguments[0];
+
+      _cookies2['default'].setItem('old_enough', true, expiry);
     }
   }]);
 

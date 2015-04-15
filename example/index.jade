@@ -14,17 +14,24 @@ html(lang='en')
       sunt in culpa qui officia deserunt mollit anim id est laborum."
 
     form.agegate
-      label
-        h2 Select your country
-        select(name='country')
-      label
-        h2 Enter your DOB
+      .agegate__item
+        label
+          h2 Select your country
+          select(name='country')
+      .agegate__item
+        label
+          h2 Enter your DOB
 
-        - var currentYear = new Date().getFullYear()
-        input(type='number', name='year', placeholder='YYYY', min=currentYear-120 max=currentYear, value='1986')
-        input(type='number', name='month', placeholder='MM', min=1, max=12, value='08')
-        input(type='number', name='day', placeholder='DD', min=1, max=31, value='14')
+          - var currentYear = new Date().getFullYear()
+          input(type='number', name='year', placeholder='YYYY', min=currentYear-120 max=currentYear, value='1986')
+          input(type='number', name='month', placeholder='MM', min=1, max=12, value='08')
+          input(type='number', name='day', placeholder='DD', min=1, max=31, value='14')
 
-      button(type='submit') Enter
+      .agegate__item
+        label
+          input(type='checkbox', name='remember', checked)
+          span Remember me?
+      .agegate__item
+        button(type='submit') Enter
 
     script(src='agegate-compiled.js')
