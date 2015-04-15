@@ -35,17 +35,16 @@ var AgeGate = (function () {
   _createClass(AgeGate, [{
     key: 'render',
     value: function render() {
-      console.log('AgeGate initialized');
-      this.populateSelectElement();
-      this.options.form.addEventListener('submit', this.submitForm.bind(this));
+      this.populate();
+      this.options.form.addEventListener('submit', this.submit.bind(this));
     }
   }, {
-    key: 'populateSelectElement',
+    key: 'populate',
 
     /**
      * Add countries to <select> element
      */
-    value: function populateSelectElement() {
+    value: function populate() {
       var _this2 = this;
 
       Object.keys(_data2['default']).forEach(function (continent) {
@@ -69,13 +68,13 @@ var AgeGate = (function () {
       });
     }
   }, {
-    key: 'submitForm',
+    key: 'submit',
 
     /**
      * Serialize form data on submit,
      * and pass onto validation
      */
-    value: function submitForm(e) {
+    value: function submit(e) {
       e.preventDefault();
 
       // serialize form data
@@ -94,13 +93,21 @@ var AgeGate = (function () {
         }
       }
 
-      this.validate(data);
+      this.verify(data);
     }
   }, {
-    key: 'validate',
-    value: function validate(data) {
-      console.log(data);
-      this.options.callback(null, data);
+    key: 'verify',
+
+    /**
+     * Calculate the age and issue callback with the verdict
+     * Age calculator by Kristoffer Dorph
+     * http://stackoverflow.com/a/15555947/362136
+     */
+    value: function verify(data) {
+      var dateString = [data.year, data.month, data.day].join('/');
+      var age = ~ ~((Date.now() - +new Date(dateString)) / 31557600000);
+
+      if (age >= this.ages[data.country]) this.options.callback(null);else this.options.callback(new Error('Age verification failed'));
     }
   }]);
 

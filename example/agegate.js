@@ -5,7 +5,7 @@ let options = {
   form: document.querySelector('.agegate'),
   callback(err) {
     if (err)
-      throw new Error('u dun g00fed');
+      throw new Error(err.message);
     else
       console.log('Cool beans');
   }
