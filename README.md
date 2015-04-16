@@ -7,13 +7,11 @@ Protect your app with an age gate
 ```
 <form name='agegate'>
 
-  <!-- required -->
-  <input type='number' name='year'>
+  <input type='number' name='year'> // required
   <input type='number' name='month'>
   <input type='number' name='day'>
   
-  <!-- only required if 'countries: true' -->
-  <select name='country'></select>
+  <select name='country'></select> // only required if 'countries: true'
   
   <button type='submit'>Enter</button>
 </form>
