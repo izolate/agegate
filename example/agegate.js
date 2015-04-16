@@ -1,14 +1,14 @@
 import AgeGate from '../dist/index';
 
 let options = {
-  defaultCountry: 'UK',
   form: document.querySelector('.agegate'),
   callback(err) {
     if (err)
       throw new Error(err.message);
     else
       console.log('Cool beans');
-  }
+  },
+  cookieExpiry: Infinity
 };
 
 window.gate = new AgeGate(options);

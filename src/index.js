@@ -84,7 +84,7 @@ class AgeGate {
 
     // cookie
     if ( data.remember && data.remember === 'on' )
-      this.createCookie();
+      this.createCookie(this.defaults.cookieExpiry);
 
     if (age >= this.countryAges[data.country])
       this.defaults.callback(null);
@@ -95,7 +95,7 @@ class AgeGate {
   /**
    * Create a cookie to remember age
    */
-  createCookie(expiry=Infinity) {
+  createCookie(expiry=0) {
     cookies.setItem('old_enough', true, expiry);
   }
 

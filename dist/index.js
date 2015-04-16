@@ -26,12 +26,12 @@ var AgeGate = (function () {
 
     // set defaults
     this.defaults = opts;
-    this.ages = {};
+    this.countryAges = {};
 
     // convert age data to usable key => value
     for (var cont in _data2['default']) {
       _data2['default'][cont].map(function (country) {
-        return _this.ages[country.code] = country.age;
+        return _this.countryAges[country.code] = country.age;
       });
     }
   }
@@ -100,6 +100,13 @@ var AgeGate = (function () {
       this.verify(data);
     }
   }, {
+    key: 'age',
+
+    // getter: legal age
+    get: function () {
+      return this.defaults.age || 0;
+    }
+  }, {
     key: 'verify',
 
     /**
@@ -113,9 +120,9 @@ var AgeGate = (function () {
       var age = ~ ~((Date.now() - +new Date(dateString)) / 31557600000);
 
       // cookie
-      if (data.remember && data.remember === 'on') this.createCookie();
+      if (data.remember && data.remember === 'on') this.createCookie(this.defaults.cookieExpiry);
 
-      if (age >= this.ages[data.country]) this.defaults.callback(null);else this.defaults.callback(new Error('Age verification failed'));
+      if (age >= this.countryAges[data.country]) this.defaults.callback(null);else this.defaults.callback(new Error('Age verification failed'));
     }
   }, {
     key: 'createCookie',
@@ -124,7 +131,7 @@ var AgeGate = (function () {
      * Create a cookie to remember age
      */
     value: function createCookie() {
-      var expiry = arguments[0] === undefined ? Infinity : arguments[0];
+      var expiry = arguments[0] === undefined ? 0 : arguments[0];
 
       _cookies2['default'].setItem('old_enough', true, expiry);
     }
