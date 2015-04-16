@@ -1,0 +1,56 @@
+@import '_vars'
+@import '_reset'
+
+global-reset()
+
+@import 'base'
+@import 'forms'
+@import 'buttons'
+
+.agegate
+  position fixed
+  top 0
+  left 0
+  width 100%
+  height 100%
+  display flex
+  justify-content center
+  align-items center
+  background-color $color--navy
+
+  &__item
+    margin 20px 0
+
+    &.button-container
+      margin-bottom 0
+
+    &.checkbox
+      margin 0 5px
+      > *
+        display inline-block
+        vertical-align middle
+      input
+        width 25px
+        margin 0
+      span
+        font-size 1.25rem
+        color $color--grey-medium
+
+  form
+    border-top 30px solid $color--pale-blue
+    padding 0 20px 5px
+    border-radius 4px
+    background-color white
+  input[type=number]
+    width 125px
+    margin 0 5px
+    text-align center
+  button
+    width 395px
+    margin 5px
+  select
+    width 395px
+    margin 0 5px
+  h2
+    margin 0 5px 15px
+    font-weight bold

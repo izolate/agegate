@@ -2,7 +2,28 @@ doctype html
 html(lang='en')
   head
     title AgeGate
+    link(rel='stylesheet', href='/static/index.css')
 
   body
-    h1 AgeGate
+    section.agegate
+      form(name='agegate')
+        .agegate__item
+          label
+            h2.h5 When is your birthday?
+            input(type='number', name='year', placeholder='YYYY')
+            input.middle(type='number', name='month', placeholder='MM')
+            input(type='number', name='day', placeholder='DD')
+
+        .agegate__item
+          select(name='country')
+            option Select a country
+
+        .agegate__item.button-container
+          button.button.button--primary(type='submit') Verify your age
+
+        .agegate__item.checkbox
+          input(type='checkbox', name='remember')
+          span Remember me
+
+
 

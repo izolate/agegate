@@ -1,0 +1,42 @@
+button
+  border none
+
+button, .button
+  width 100%
+  display block
+  height: 50px;
+  padding: 0 30px;
+  line-height: 48px;
+  font-size $font-base
+  font-weight bold
+  text-align center
+  white-space: nowrap;
+  cursor pointer
+  color $color--blue
+  background-color: transparent;
+  border: 2px solid $color--blue;
+  border-radius: 4px;
+  -webkit-appearance none
+  -webkit-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  user-select none
+
+  &:disabled
+    cursor not-allowed
+
+  &:focus
+    outline none
+
+  &.button--primary
+    background-color $color--blue
+    color white
+    &:hover, &:focus
+      background-color #4B86C2
+      border-color #4B86C2
+
+  &.button--secondary
+    background-color $color--pale-blue
+
+  &.button--blank
+    border-color transparent

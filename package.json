@@ -4,7 +4,10 @@
   "description": "gh-pages",
   "main": "index.html",
   "scripts": {
-    "jade": "jade index.jade"
+    "jade": "jade index.jade",
+    "stylus": "stylus static/index.styl",
+    "build": "npm run jade && npm run stylus",
+    "develop": "watch 'npm run build' ."
   },
   "repository": {
     "type": "git",
@@ -17,6 +20,8 @@
   },
   "homepage": "https://github.com/izolate/agegate",
   "devDependencies": {
-    "jade": "^1.9.2"
+    "jade": "^1.9.2",
+    "stylus": "^0.50.0",
+    "watch": "^0.16.0"
   }
 }
