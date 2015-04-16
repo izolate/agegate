@@ -7,7 +7,7 @@ Best part? 100% pure JavaScript, with no dependencies.
 
 ### HTML
 
-The maximum amount of markup you'll need is as follows:
+The maximum amount of markup you'll need is as follows. Keep the same `name` attributes:
 ```
 <form name='agegate'>
   <input type='number' name='year'>
@@ -22,13 +22,13 @@ The maximum amount of markup you'll need is as follows:
 </form>
 ```
 
-##### `<input type='number'>`
-Only `year` is **required**, but you can add the others to increase accuracy at the cost of speed.
+##### `<input type='number' name='year|month|day'>`
+Only `year` is **required**, but you can add the others to increase accuracy at the cost of your user's speed.
 
-##### `<input type='checkbox'>`
-Gives your users the choice to save the cookie longer than the session, the length of which you can specify in the options. It's **required** if you want any cookies to be saved.
+##### `<input type='checkbox' name='remember'>`
+Lets your users decide whether to save the cookie to your desired expiration, the length of which you specify in the options. Left unchecked, the default behaviour will create a cookie that expires at the end of the session.
 
-##### `<select>`
+##### `<select name='country'>`
 Only **required** if you set `countries: true` in the options. It will be populated with a list of countries to choose from.
 
 ### JavaScript
