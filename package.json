@@ -3,20 +3,30 @@
   "version": "1.0.0",
   "description": "Limit access to your app with an age gate",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/izolate/agegate.git"
+  },
   "directories": {
     "example": "example"
   },
   "scripts": {
-    "browserify": "browserify example/agegate.js -t babelify -o example/agegate-compiled.js",
+    "develop": "npm run watch",
+    "watch": "watch 'npm run build' ./src",
     "build": "babel --modules common src/ --out-dir dist/",
     "example": "npm run jade && npm run browserify",
+    "example:watch": "npm run jade && npm run watchify",
     "jade": "jade -P example/index.jade -o example/",
+    "browserify": "browserify example/agegate.js -t babelify -o example/agegate-compiled.js",
     "watchify": "watchify example/agegate.js -o example/agegate-compiled.js -v -t babelify"
   },
   "keywords": [
     "age",
     "gate",
-    "agegate"
+    "agegate",
+    "age gate",
+    "adult",
+    "verification"
   ],
   "author": "izolate <yoshtalwar@gmail.com>",
   "license": "MIT",
@@ -25,6 +35,7 @@
     "babelify": "^6.0.2",
     "browserify": "^9.0.8",
     "jade": "^1.9.2",
+    "watch": "^0.16.0",
     "watchify": "^3.1.0"
   }
 }

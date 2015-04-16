@@ -1,5 +1,5 @@
 # AgeGate
-Limit access to your app with an age gate. Contains data for legal drinking age per country, for alcohol-related apps. Makes no assumption about your frontend; create the markup and supply the `<form>` element to the `AgeGate`, and handle success/failure via a callback function.
+Limit access to your app with an age gate. For alcohol-related uses, contains data for the legal drinking in every country. Makes zero assumptions about your frontend; create the markup and supply the `<form>` element to the `AgeGate`, and handle success/failure via the callback function.
 
 Best part? 100% pure JavaScript, with no dependencies.
 
@@ -10,15 +10,14 @@ Best part? 100% pure JavaScript, with no dependencies.
 The maximum amount of markup you'll need is as follows:
 ```
 <form name='agegate'>
-
   <input type='number' name='year'> <!-- required -->
   <input type='number' name='month'>
   <input type='number' name='day'>
-  
+
   <select name='country'></select> <!-- only required if countries is enabled -->
-  
+
   <input type='checkbox' name='remember' checked>
-  
+
   <button type='submit'>Enter</button>
 </form>
 ```
