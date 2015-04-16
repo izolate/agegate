@@ -22,8 +22,8 @@ The maximum amount of markup you'll need is as follows:
   <button type='submit'>Enter</button>
 </form>
 ```
-* **`input[type='number']`** - Name as `year`, `month` and `day`. Only `year` is **required**, but you can add the others to increase accuracy
-* **`input[type='checkbox']`** - Name as `remember`. Gives your users the choice to save the cookie longer than the session. Set the expiration time in the options.
+* **`input[type='number']`** - Name as `year`, `month` and `day`. Only `year` is **required**, but you can add the others to increase accuracy.
+* **`input[type='checkbox']`** - Name as `remember`. Gives your users the choice to save the cookie longer than the session. Set the expiration time in the options. It's **required** if you want cookies to be saved, omit for no cookies.
 * **`select`** - Name as `country`. Only **required** if you set `countries: true` in the options.
 
 ### Scripts
