@@ -1,10 +1,11 @@
 import data from './data';
 import cookies from './cookies';
 
-class AgeGate {
-  constructor(opts) {
+export default class AgeGate {
+  constructor(opts, cb) {
     // set defaults
     this.defaults = opts;
+    this.callback = cb;
     this.countryAges = {};
 
     // convert age data to usable key => value
@@ -13,9 +14,18 @@ class AgeGate {
     }
   }
 
+  // Getters
+  get countriesEnabled() {
+    return !!this.defaults.countries;
+  }
+
+  get legalAge() {
+    return this.defaults.age | 0;
+  }
+
   render() {
-    this.populate();
     this.defaults.form.addEventListener('submit', this.submit.bind(this));
+    this.countriesEnabled && this.populate();
   }
 
   /**
@@ -67,29 +77,26 @@ class AgeGate {
     this.verify(data);
   }
 
-  // getter: legal age
-  get age() {
-    return this.defaults.age || 0;
-  }
-
   /**
+   * Parse form data
    * Calculate the age and insert cookie if needed
    * Age calculator by Kristoffer Dorph
    * http://stackoverflow.com/a/15555947/362136
    */
   verify(data) {
-    // age
+    let valid = false, legalAge = this.countryAges[data.country] | this.legalAge;
     let dateString = [data.year, data.month, data.day].join('/');
     let age = ~~((Date.now() - +new Date(dateString)) / (31557600000));
 
     // cookie
-    if ( data.remember && data.remember === 'on' )
-      this.createCookie(this.defaults.cookieExpiry);
+    if ( !!data.remember && data.remember === 'on' )
+      this.createCookie(this.defaults.remember);
 
-    if (age >= this.countryAges[data.country])
-      this.defaults.callback(null);
-    else
-      this.defaults.callback(new Error('Age verification failed'));
+    console.log(legalAge);
+    if (age >= legalAge)
+      valid = true;
+
+    this.respond(valid);
   }
 
   /**
@@ -99,6 +106,13 @@ class AgeGate {
     cookies.setItem('old_enough', true, expiry);
   }
 
+  /**
+   * Issue the callback with final verdict
+   */
+  respond(valid=false) {
+    if (valid)
+      this.callback(null);
+    else
+      this.callback(new Error('Age verification failed'));
+  }
 }
-
-export default AgeGate;

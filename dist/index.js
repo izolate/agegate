@@ -19,13 +19,14 @@ var _cookies = require('./cookies');
 var _cookies2 = _interopRequireWildcard(_cookies);
 
 var AgeGate = (function () {
-  function AgeGate(opts) {
+  function AgeGate(opts, cb) {
     var _this = this;
 
     _classCallCheck(this, AgeGate);
 
     // set defaults
     this.defaults = opts;
+    this.callback = cb;
     this.countryAges = {};
 
     // convert age data to usable key => value
@@ -37,10 +38,22 @@ var AgeGate = (function () {
   }
 
   _createClass(AgeGate, [{
+    key: 'countriesEnabled',
+
+    // Getters
+    get: function () {
+      return !!this.defaults.countries;
+    }
+  }, {
+    key: 'legalAge',
+    get: function () {
+      return this.defaults.age | 0;
+    }
+  }, {
     key: 'render',
     value: function render() {
-      this.populate();
       this.defaults.form.addEventListener('submit', this.submit.bind(this));
+      this.countriesEnabled && this.populate();
     }
   }, {
     key: 'populate',
@@ -100,29 +113,27 @@ var AgeGate = (function () {
       this.verify(data);
     }
   }, {
-    key: 'age',
-
-    // getter: legal age
-    get: function () {
-      return this.defaults.age || 0;
-    }
-  }, {
     key: 'verify',
 
     /**
+     * Parse form data
      * Calculate the age and insert cookie if needed
      * Age calculator by Kristoffer Dorph
      * http://stackoverflow.com/a/15555947/362136
      */
     value: function verify(data) {
-      // age
+      var valid = false,
+          legalAge = this.countryAges[data.country] | this.legalAge;
       var dateString = [data.year, data.month, data.day].join('/');
       var age = ~ ~((Date.now() - +new Date(dateString)) / 31557600000);
 
       // cookie
-      if (data.remember && data.remember === 'on') this.createCookie(this.defaults.cookieExpiry);
+      if (!!data.remember && data.remember === 'on') this.createCookie(this.defaults.remember);
 
-      if (age >= this.countryAges[data.country]) this.defaults.callback(null);else this.defaults.callback(new Error('Age verification failed'));
+      console.log(legalAge);
+      if (age >= legalAge) valid = true;
+
+      this.respond(valid);
     }
   }, {
     key: 'createCookie',
@@ -134,6 +145,17 @@ var AgeGate = (function () {
       var expiry = arguments[0] === undefined ? 0 : arguments[0];
 
       _cookies2['default'].setItem('old_enough', true, expiry);
+    }
+  }, {
+    key: 'respond',
+
+    /**
+     * Issue the callback with final verdict
+     */
+    value: function respond() {
+      var valid = arguments[0] === undefined ? false : arguments[0];
+
+      if (valid) this.callback(null);else this.callback(new Error('Age verification failed'));
     }
   }]);
 
