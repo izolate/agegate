@@ -24,8 +24,8 @@ export default class AgeGate {
   }
 
   render() {
-    this.defaults.form.addEventListener('submit', this.submit.bind(this));
     this.countriesEnabled && this.populate();
+    this.defaults.form.addEventListener('submit', this.submit.bind(this));
   }
 
   /**

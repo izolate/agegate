@@ -39,6 +39,10 @@ var africa = [{
   name: 'Comoros',
   age: 0
 }, {
+  code: 'CD',
+  name: 'Democratic Republic of the Congo',
+  age: 18
+}, {
   code: 'EG',
   name: 'Egypt',
   age: 21
@@ -74,35 +78,102 @@ var africa = [{
   code: 'KE',
   name: 'Kenya',
   age: 18
+}, {
+  name: 'Lesotho',
+  age: 18
+}, {
+  code: 'LY',
+  name: 'Libya',
+  age: Infinity
+}, {
+  code: 'MW',
+  name: 'Malawi',
+  age: 18
+}, {
+  code: 'MU',
+  name: 'Mauritius',
+  age: 18
+}, {
+  code: 'MA',
+  name: 'Morocco',
+  age: 16
+}, {
+  code: 'MZ',
+  name: 'Mozambique',
+  age: 18
+}, {
+  code: 'NA',
+  name: 'Namibia',
+  age: 18
+}, {
+  code: 'NE',
+  name: 'Niger',
+  age: 18
+}, {
+  code: 'NG',
+  name: 'Nigeria',
+  age: 18
+}, {
+  code: 'CG',
+  name: 'Republic of the Congo',
+  age: 18
+}, {
+  code: 'RW',
+  name: 'Rwanda',
+  age: 18
+}, {
+  code: 'SN',
+  name: 'Senegal',
+  age: 0
+}, {
+  code: 'SC',
+  name: 'Seychelles',
+  age: 18
+}, {
+  code: 'SO',
+  name: 'Somalia',
+  age: Infinity
+}, {
+  code: 'ZA',
+  name: 'South Africa',
+  age: 18
+}, {
+  code: 'SS',
+  name: 'South Sudan',
+  age: 18
+}, {
+  code: 'SD',
+  name: 'Sudan',
+  age: Infinity
+}, {
+  code: 'SZ',
+  name: 'Swaziland',
+  age: 18
+}, {
+  code: 'TZ',
+  name: 'Tanzania',
+  age: 18
+}, {
+  code: 'TG',
+  name: 'Togo',
+  age: 18
+}, {
+  code: 'TN',
+  name: 'Tunisia',
+  age: 18
+}, {
+  code: 'UG',
+  name: 'Uganda',
+  age: 18
+}, {
+  code: 'ZM',
+  name: 'Zambia',
+  age: 18
+}, {
+  code: 'ZW',
+  name: 'Zimbabwe',
+  age: 18
 }];
-/*
-TODO Get drunk and finish the rest manually
-
-Lesotho 18
-Libya Infinity
-Malawi 18
-Mauritius 18
-Morocco 16
-Mozambique 18
-Namibia 18
-Niger 18
-Nigeria 18
-Republic of the Congo 18
-Rwanda 18
-Senegal 0
-Seychelles 18
-Somalia Illegal
-South Africa 18
-South Sudan 18
-Sudan Infinity
-Swaziland 18
-Tanzania 18
-Togo 18
-Tunisia 18
-Uganda 18
-Zambia 18
-Zimbabwe 18
-*/
 
 exports['default'] = {
   Africa: africa
