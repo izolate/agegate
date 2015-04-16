@@ -1,0 +1,22 @@
+{
+  "name": "agegate",
+  "version": "1.0.0",
+  "description": "gh-pages",
+  "main": "index.html",
+  "scripts": {
+    "jade": "jade index.jade"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/izolate/agegate.git"
+  },
+  "author": "izolate <yoshtalwar@gmail.com> (http://izolate.net/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/izolate/agegate/issues"
+  },
+  "homepage": "https://github.com/izolate/agegate",
+  "devDependencies": {
+    "jade": "^1.9.2"
+  }
+}
