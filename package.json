@@ -7,7 +7,8 @@
     "jade": "jade index.jade",
     "stylus": "stylus static/index.styl",
     "build": "npm run jade && npm run stylus",
-    "develop": "watch 'npm run build' ."
+    "develop": "watch 'npm run build' .",
+    "js": "browserify -g uglifyify static/index.js > static/index.min.js"
   },
   "repository": {
     "type": "git",
@@ -20,8 +21,11 @@
   },
   "homepage": "https://github.com/izolate/agegate",
   "devDependencies": {
+    "agegate": "http://github.com/izolate/agegate/tarball/master",
+    "browserify": "^9.0.8",
     "jade": "^1.9.2",
     "stylus": "^0.50.0",
+    "uglifyify": "^3.0.1",
     "watch": "^0.16.0"
   }
 }
