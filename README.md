@@ -6,11 +6,14 @@ Protect your app with an age gate
 ### Markup
 ```
 <form name='agegate'>
-  <select name='country'></select>
-  
+
+  <!-- required -->
   <input type='number' name='year'>
   <input type='number' name='month'>
   <input type='number' name='day'>
+  
+  <!-- only required if 'countries: true' -->
+  <select name='country'></select>
   
   <button type='submit'>Enter</button>
 </form>
@@ -22,23 +25,32 @@ import AgeGate from 'agegate';
 
 let options = {
   form: document.querySelector('form'),
-  callback(err) {
-    if (err)
-      throw new Error('Too young');
-    else
-      console.log('Okay!');
-  }
+  countries: true,
+  cookieExpiry: Infinity
 };
 
-let gate = new AgeGate(options);
+let gate = new AgeGate(options, (err) => {
+  if (err)
+    throw new Error('Too young');
+  else
+    console.log('Success');
+});
 
 gate.render();
 ```
 
-## Options
+## API
 
-Name | Type | Required | Default | Description
+### `AgeGate(options, callback)`
+
+### Options
+
+Name | Type | Default | Required | Description
 --- | --- | --- | --- | ---
-**form** | `Element` | ✓ | | DOM Element of `<form>`
-**defaultCountry** | `String` | | AO | Selected country option in `<select>`. Format: [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-**callback** | `function` | ✓ | | Callback fn with parameter `err` that's called on form submit
+**form** | `Element` || ✓ | `<form>` DOM element
+**countries** | `boolean` | `false` | | For alcohol-related apps, validates age against minimum legal drinking age in selected country. Setting `true` enables the `<select>` list of countries to choose from.
+**remember** | `Infinity`, `number` | `0` | | Sets the expiration of the cookie.
+
+### `Callback(err)`
+Callback function that's returned on form submit. The parameter `err` is `null` if age verification succeeds, otherwise an `Error`.
+
