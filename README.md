@@ -3,6 +3,10 @@ Limit access to your app with an age gate. For alcohol-related uses, contains da
 
 Best part? 100% pure JavaScript, with no dependencies.
 
+## Demo
+
+[izolate.github.io/agegate](https://izolate.github.io/agegate)
+
 ## Usage
 
 ### HTML
