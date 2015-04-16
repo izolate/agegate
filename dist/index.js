@@ -129,7 +129,7 @@ var AgeGate = (function () {
       var age = ~ ~((now.getTime() - +new Date(dateString)) / 31557600000);
 
       // set cookie
-      if (!!data.remember && data.remember === 'on') this.createCookie(this.defaults.remember);
+      if (!!data.remember && data.remember === 'on') this.createCookie(this.defaults.expiry);
 
       if (age >= legalAge) valid = true;
 

@@ -92,7 +92,7 @@ export default class AgeGate {
 
     // set cookie
     if ( !!data.remember && data.remember === 'on' )
-      this.createCookie(this.defaults.remember);
+      this.createCookie(this.defaults.expiry);
 
     if (age >= legalAge) valid = true;
 
