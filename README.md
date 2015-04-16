@@ -24,7 +24,7 @@ import AgeGate from 'agegate';
 let options = {
   form: document.querySelector('form'),
   countries: true,
-  cookieExpiry: Infinity
+  remember: Infinity
 };
 
 let gate = new AgeGate(options, (err) => {
@@ -43,11 +43,14 @@ gate.render();
 
 ### Options
 
+An `object` with the following options:
+
 Name | Type | Default | Required | Description
 --- | --- | --- | --- | ---
+**age** | `number` | `18` | | Custom legal age to verify against. Overridden if `countries` is set to `true`
 **form** | `Element` || ✓ | `<form>` DOM element
-**countries** | `boolean` | `false` | | For alcohol-related apps, validates age against minimum legal drinking age in selected country. Setting `true` enables the `<select>` list of countries to choose from.
-**remember** | `Infinity`, `number` | `0` | | Sets the expiration of the cookie.
+**countries** | `boolean` | `false` | | For alcohol-related apps, validates age against minimum legal drinking age in selected country. Setting `true` enables the `<select>` list of countries to choose from
+**remember** | `Infinity`, `number` | `0` | | Sets the expiration of the cookie
 
 ### `Callback(err)`
 Callback function that's returned on form submit. The parameter `err` is `null` if age verification succeeds, otherwise an `Error`.
