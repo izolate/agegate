@@ -47,7 +47,7 @@ var AgeGate = (function () {
   }, {
     key: 'legalAge',
     get: function () {
-      return this.defaults.age | 0;
+      return this.defaults.age | 18;
     }
   }, {
     key: 'render',
@@ -127,10 +127,9 @@ var AgeGate = (function () {
       var dateString = [data.year, data.month, data.day].join('/');
       var age = ~ ~((Date.now() - +new Date(dateString)) / 31557600000);
 
-      // cookie
+      // set cookie
       if (!!data.remember && data.remember === 'on') this.createCookie(this.defaults.remember);
 
-      console.log(legalAge);
       if (age >= legalAge) valid = true;
 
       this.respond(valid);

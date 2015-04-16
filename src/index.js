@@ -20,7 +20,7 @@ export default class AgeGate {
   }
 
   get legalAge() {
-    return this.defaults.age | 0;
+    return this.defaults.age | 18;
   }
 
   render() {
@@ -88,13 +88,11 @@ export default class AgeGate {
     let dateString = [data.year, data.month, data.day].join('/');
     let age = ~~((Date.now() - +new Date(dateString)) / (31557600000));
 
-    // cookie
+    // set cookie
     if ( !!data.remember && data.remember === 'on' )
       this.createCookie(this.defaults.remember);
 
-    console.log(legalAge);
-    if (age >= legalAge)
-      valid = true;
+    if (age >= legalAge) valid = true;
 
     this.respond(valid);
   }
