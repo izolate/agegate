@@ -85,10 +85,10 @@ export default class AgeGate {
    */
   verify(data) {
     let valid = false, legalAge = this.countryAges[data.country] | this.legalAge;
-    let today = new Date(), dateString = [
-      data.year, data.month | today.getMonth(), data.day | today.getDate()
+    let now = new Date(), dateString = [
+      data.year, data.month | now.getMonth(), data.day | now.getDate()
     ].join('/');
-    let age = ~~((Date.now() - +new Date(dateString)) / (31557600000));
+    let age = ~~((now.getTime() - +new Date(dateString)) / (31557600000));
 
     // set cookie
     if ( !!data.remember && data.remember === 'on' )

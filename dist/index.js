@@ -124,9 +124,9 @@ var AgeGate = (function () {
     value: function verify(data) {
       var valid = false,
           legalAge = this.countryAges[data.country] | this.legalAge;
-      var today = new Date(),
-          dateString = [data.year, data.month | today.getMonth(), data.day | today.getDate()].join('/');
-      var age = ~ ~((Date.now() - +new Date(dateString)) / 31557600000);
+      var now = new Date(),
+          dateString = [data.year, data.month | now.getMonth(), data.day | now.getDate()].join('/');
+      var age = ~ ~((now.getTime() - +new Date(dateString)) / 31557600000);
 
       // set cookie
       if (!!data.remember && data.remember === 'on') this.createCookie(this.defaults.remember);
