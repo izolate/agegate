@@ -3,9 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-/*
- * Africa
- */
+// Africa =======================================================================
 var africa = [{
   code: 'DZ',
   name: 'Algeria',
@@ -175,8 +173,152 @@ var africa = [{
   age: 18
 }];
 
+// America ======================================================================
+var america = [{
+  code: 'AG',
+  name: 'Antigua and Barbuda',
+  age: 16
+}, {
+  code: 'AR',
+  name: 'Argentina',
+  age: 18
+}, {
+  code: 'BS',
+  name: 'Bahamas',
+  age: 18
+}, {
+  code: 'BZ',
+  name: 'Belize',
+  age: 18
+}, {
+  code: 'BM',
+  name: 'Bermuda',
+  age: 18
+}, {
+  code: 'BO',
+  name: 'Bolivia',
+  age: 18
+}, {
+  code: 'BR',
+  name: 'Brazil',
+  age: 18
+}, {
+  code: 'VG',
+  name: 'British Virgin Islands',
+  age: 16
+}, {
+  code: 'CA',
+  name: 'Canada',
+  age: 19
+}, {
+  code: 'CA-2',
+  name: 'Canada (AB, MB, QC)',
+  age: 18
+}, {
+  code: 'KY',
+  name: 'Cayman Islands',
+  age: 18
+}, {
+  code: 'CL',
+  name: 'Chile',
+  age: 18
+}, {
+  code: 'CO',
+  name: 'Colombia',
+  age: 18
+}, {
+  code: 'CR',
+  name: 'Costa Rica',
+  age: 18
+}, {
+  code: 'CU',
+  name: 'Cuba',
+  age: 18
+}, {
+  code: 'DO',
+  name: 'Dominican Republic',
+  age: 18
+}, {
+  code: 'EC',
+  name: 'Ecuador',
+  age: 18
+}, {
+  code: 'SV',
+  name: 'El Salvador',
+  age: 18
+}, {
+  code: 'FK',
+  name: 'Falkland Islands',
+  age: 18
+}, {
+  code: 'GT',
+  name: 'Guatemala',
+  age: 18
+}, {
+  code: 'GY',
+  name: 'Guyana',
+  age: 18
+}, {
+  code: 'HT',
+  name: 'Haiti',
+  age: 16
+}, {
+  code: 'HN',
+  name: 'Honduras',
+  age: 18
+}, {
+  code: 'JM',
+  name: 'Jamaica',
+  age: 16
+}, {
+  code: 'MX',
+  name: 'Mexico',
+  age: 18
+}, {
+  code: 'NI',
+  name: 'Nicaragua',
+  age: 18
+}, {
+  code: 'PA',
+  name: 'Panama',
+  age: 18
+}, {
+  code: 'PY',
+  name: 'Paraguay',
+  age: 20
+}, {
+  code: 'PE',
+  name: 'Peru',
+  age: 18
+}, {
+  code: 'PR',
+  name: 'Puerto Rico',
+  age: 18
+}, {
+  code: 'TT',
+  name: 'Trinidad and Tobago',
+  age: 18
+}, {
+  code: 'US',
+  name: 'United States',
+  age: 21
+}, {
+  code: 'VI',
+  name: 'United States Virgin Islands',
+  age: 18
+}, {
+  code: 'UY',
+  name: 'Uruguay',
+  age: 18
+}, {
+  code: 'VE',
+  name: 'Venezuela',
+  age: 18
+}];
+
 exports['default'] = {
-  Africa: africa
+  Africa: africa,
+  America: america
   // TODO the rest of the continents
 };
 module.exports = exports['default'];
