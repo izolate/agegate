@@ -90,9 +90,11 @@ export default class AgeGate {
     ].join('/');
     let age = ~~((now.getTime() - +new Date(dateString)) / (31557600000));
 
-    // set cookie
+    // set cookie if desired
     if ( !!data.remember && data.remember === 'on' )
-      this.createCookie(this.defaults.expiry);
+      this.saveCookie(this.defaults.expiry);
+    else
+      this.saveCookie();
 
     if (age >= legalAge) valid = true;
 
@@ -102,7 +104,7 @@ export default class AgeGate {
   /**
    * Create a cookie to remember age
    */
-  createCookie(expiry=0) {
+  saveCookie(expiry=null) {
     cookies.setItem('old_enough', true, expiry);
   }
 

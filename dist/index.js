@@ -128,21 +128,21 @@ var AgeGate = (function () {
           dateString = [data.year, data.month | now.getMonth(), data.day | now.getDate()].join('/');
       var age = ~ ~((now.getTime() - +new Date(dateString)) / 31557600000);
 
-      // set cookie
-      if (!!data.remember && data.remember === 'on') this.createCookie(this.defaults.expiry);
+      // set cookie if desired
+      if (!!data.remember && data.remember === 'on') this.saveCookie(this.defaults.expiry);else this.saveCookie();
 
       if (age >= legalAge) valid = true;
 
       this.respond(valid);
     }
   }, {
-    key: 'createCookie',
+    key: 'saveCookie',
 
     /**
      * Create a cookie to remember age
      */
-    value: function createCookie() {
-      var expiry = arguments[0] === undefined ? 0 : arguments[0];
+    value: function saveCookie() {
+      var expiry = arguments[0] === undefined ? null : arguments[0];
 
       _cookies2['default'].setItem('old_enough', true, expiry);
     }
