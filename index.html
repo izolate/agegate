@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>AgeGate</title>
-    <link rel="stylesheet" href="static/index.css">
+    <link rel="stylesheet" href="index.css">
   </head>
   <body>
     <section class="agegate">
@@ -10,9 +10,9 @@
         <div class="agegate__item">
           <label>
             <h2 class="h5">When is your birthday?</h2>
-            <input type="number" name="year" placeholder="YYYY">
-            <input type="number" name="month" placeholder="MM" class="middle">
-            <input type="number" name="day" placeholder="DD">
+            <input type="number" name="year" placeholder="YYYY" min="1900" max="2015">
+            <input type="number" name="month" placeholder="MM" min="1" max="12" class="middle">
+            <input type="number" name="day" placeholder="DD" min="1" max="31">
           </label>
         </div>
         <div class="agegate__item">
@@ -28,6 +28,31 @@
         </div>
       </form>
     </section>
-    <script src="static/index.min.js"></script>
+    <script src="agegate.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(e) {
+      
+        /**
+         * AgeGate object imported and attached to window.AgaGate
+         */
+      
+        var gate = new AgeGate({
+      
+          // set options
+          form: document.querySelector('form'),
+          countries: true
+      
+        }, function(err) {
+      
+          // handle post-validation action
+          if (err)
+            alert('Age check failed!');
+          else
+            window.location = 'https://github.com/izolate/agegate';
+      
+        }).render();
+      
+      });
+    </script>
   </body>
 </html>

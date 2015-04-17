@@ -2,7 +2,7 @@ doctype html
 html(lang='en')
   head
     title AgeGate
-    link(rel='stylesheet', href='static/index.css')
+    link(rel='stylesheet', href='index.css')
 
   body
     section.agegate
@@ -10,9 +10,14 @@ html(lang='en')
         .agegate__item
           label
             h2.h5 When is your birthday?
-            input(type='number', name='year', placeholder='YYYY')
-            input.middle(type='number', name='month', placeholder='MM')
-            input(type='number', name='day', placeholder='DD')
+
+            - var today = new Date();
+            input(type='number', name='year', placeholder='YYYY',
+              min='1900', max=today.getFullYear())
+            input.middle(type='number', name='month', placeholder='MM',
+              min='1', max='12')
+            input(type='number', name='day', placeholder='DD',
+              min='1', max='31')
 
         .agegate__item
           select(name='country')
@@ -25,7 +30,31 @@ html(lang='en')
           input(type='checkbox', name='remember')
           span Remember me
 
-    script(src='static/index.min.js')
+    script(src='agegate.min.js')
+    script.
+      document.addEventListener('DOMContentLoaded', function(e) {
+
+        /**
+         * AgeGate object imported and attached to window.AgaGate
+         */
+
+        var gate = new AgeGate({
+
+          // set options
+          form: document.querySelector('form'),
+          countries: true
+
+        }, function(err) {
+
+          // handle post-validation action
+          if (err)
+            alert('Age check failed!');
+          else
+            window.location = 'https://github.com/izolate/agegate';
+
+        }).render();
+
+      });
 
 
 

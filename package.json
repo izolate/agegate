@@ -8,7 +8,7 @@
     "stylus": "stylus src/index.styl -o .",
     "build": "npm run jade && npm run stylus && npm run js",
     "develop": "watch 'npm run build' ./src",
-    "js": "browserify -g uglifyify src/index.js > index.min.js"
+    "js": "browserify -g uglifyify src/index.js -o agegate.min.js"
   },
   "repository": {
     "type": "git",
