@@ -51,14 +51,14 @@ let gate = new AgeGate(options, (err) => {
   else
     console.log('Fly, you fools');
 });
-
-gate.render();
 ```
 
 ## API
 
 ### `AgeGate(options, callback)`
 Create a `new` instance of the class, passing in the options `object` as first parameter and specifying a callback `function` as the second.
+
+Instantiate it wherever appropriate (e.g. DOM ready) to start the age gate. An event listener will be added to the `submit` event for the specified `form`, and the `<select>` element will be populated with country data when required.
 
 #### Options
 
@@ -74,6 +74,3 @@ Name | Type | Default | Required | Description
 #### `Callback(err)`
 Callback function that's returned on form submit. The parameter `err` is `null` if age verification succeeds, otherwise an `Error`.
 
-### `AgeGate.render()`
-
-Call this method wherever appropriate (e.g. DOM ready) to start the age gate. An event listener will be added to the `submit` event for the specified `form`, and the `<select>` element will be populated with country data when required.
