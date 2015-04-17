@@ -37,20 +37,20 @@ global-reset()
         color $color--grey-medium
 
   form
-    border-top 30px solid $color--pale-blue
+    border-top 35px solid $color--pale-blue
     padding 0 20px 5px
     border-radius 4px
     background-color white
-  input[type=number]
-    width 125px
-    margin 0 5px
-    text-align center
-  button
-    width 395px
-    margin 5px
-  select
-    width 395px
-    margin 0 5px
-  h2
-    margin 0 5px 15px
-    font-weight bold
+
+    input[type=number]
+      width 125px
+      &:nth-of-type(2)
+        margin 0 10px
+
+    button, select
+      width 100%
+      margin 5px 0
+
+    h2
+      margin 0 5px 15px
+      font-weight bold

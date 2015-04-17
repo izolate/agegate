@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "jade": "jade src/index.jade -o . -P",
-    "stylus": "stylus src/index.styl -o .",
+    "stylus": "stylus -u autoprefixer-stylus -c src/index.styl -o .",
     "build": "npm run jade && npm run stylus && npm run js",
     "develop": "watch 'npm run build' ./src",
     "js": "browserify -g uglifyify src/index.js -o agegate.min.js"
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/izolate/agegate",
   "devDependencies": {
     "agegate": "http://github.com/izolate/agegate/tarball/master",
+    "autoprefixer-stylus": "^0.5.0",
     "browserify": "^9.0.8",
     "jade": "^1.9.2",
     "stylus": "^0.50.0",
