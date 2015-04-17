@@ -60,7 +60,8 @@ var AgeGate = (function () {
      * Add countries to <select> element
      */
     value: function populate() {
-      var _this2 = this;
+      var select = this.defaults.form.querySelector('select');
+      select.innerHTML = ''; // assume it's not empty
 
       Object.keys(_data2['default']).forEach(function (continent) {
         var group = document.createElement('optgroup');
@@ -79,8 +80,6 @@ var AgeGate = (function () {
           group.appendChild(option);
         }
 
-        var select = _this2.defaults.form.querySelector('select');
-        select.innerHTML = '';
         select.appendChild(group);
       });
     }

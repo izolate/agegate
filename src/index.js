@@ -31,6 +31,9 @@ export default class AgeGate {
    * Add countries to <select> element
    */
   populate() {
+    let select = this.defaults.form.querySelector('select');
+    select.innerHTML = ''; // assume it's not empty
+
     Object.keys(data).forEach(continent => {
       let group = document.createElement('optgroup');
       group.label = continent;
@@ -48,8 +51,6 @@ export default class AgeGate {
         group.appendChild(option);
       }
 
-      let select = this.defaults.form.querySelector('select');
-      select.innerHTML = '';
       select.appendChild(group);
     });
   }
