@@ -51,8 +51,6 @@ let gate = new AgeGate(options, (err) => {
   else
     console.log('Fly, you fools');
 });
-
-gate.render();
 ```
 
 ## API
