@@ -35,6 +35,10 @@ var AgeGate = (function () {
         return _this.countryAges[country.code] = country.age;
       });
     }
+
+    // render
+    this.countriesEnabled && this.populate();
+    this.defaults.form.addEventListener('submit', this.submit.bind(this));
   }
 
   _createClass(AgeGate, [{
@@ -48,12 +52,6 @@ var AgeGate = (function () {
     key: 'legalAge',
     get: function () {
       return this.defaults.age | 18;
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      this.countriesEnabled && this.populate();
-      this.defaults.form.addEventListener('submit', this.submit.bind(this));
     }
   }, {
     key: 'populate',
@@ -81,7 +79,9 @@ var AgeGate = (function () {
           group.appendChild(option);
         }
 
-        _this2.defaults.form.querySelector('select').appendChild(group);
+        var select = _this2.defaults.form.querySelector('select');
+        select.innerHTML = '';
+        select.appendChild(group);
       });
     }
   }, {

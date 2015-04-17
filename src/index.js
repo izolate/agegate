@@ -12,6 +12,10 @@ export default class AgeGate {
     for (let cont in data) {
       data[cont].map(country => this.countryAges[country.code] = country.age);
     }
+
+    // render
+    this.countriesEnabled && this.populate();
+    this.defaults.form.addEventListener('submit', this.submit.bind(this));
   }
 
   // Getters
@@ -21,11 +25,6 @@ export default class AgeGate {
 
   get legalAge() {
     return this.defaults.age | 18;
-  }
-
-  render() {
-    this.countriesEnabled && this.populate();
-    this.defaults.form.addEventListener('submit', this.submit.bind(this));
   }
 
   /**
@@ -49,7 +48,9 @@ export default class AgeGate {
         group.appendChild(option);
       }
 
-      this.defaults.form.querySelector('select').appendChild(group);
+      let select = this.defaults.form.querySelector('select');
+      select.innerHTML = '';
+      select.appendChild(group);
     });
   }
 
