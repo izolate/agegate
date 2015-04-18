@@ -21,6 +21,11 @@ describe('AgeGate', function() {
     it('should override default age with supplied age', function() {
       assert.isAbove(gate.legalAge, 18);
     });
+
+    it('should populate the <select> with countries', function() {
+      var select = form.querySelector('select');
+      assert.isAbove(select.children.length, 0);
+    });
   });
 });
 
