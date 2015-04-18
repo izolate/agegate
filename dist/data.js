@@ -1,320 +1,324 @@
-"use strict";
+'use strict';
 
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 // Africa =======================================================================
 var africa = [{
-  code: "DZ",
-  name: "Algeria",
+  code: 'DZ',
+  name: 'Algeria',
   age: 18
 }, {
-  code: "AO",
-  name: "Angola",
+  code: 'AO',
+  name: 'Angola',
   age: 18
 }, {
-  code: "DZ",
-  name: "Botswana",
+  code: 'DZ',
+  name: 'Botswana',
   age: 18
 }, {
-  code: "BI",
-  name: "Burundi",
+  code: 'BI',
+  name: 'Burundi',
   age: 18
 }, {
-  code: "CM",
-  name: "Cameroon",
+  code: 'CM',
+  name: 'Cameroon',
   age: 21
 }, {
-  code: "CV",
-  name: "Cape Verde",
+  code: 'CV',
+  name: 'Cape Verde',
   age: 18
 }, {
-  code: "CF",
-  name: "Central African Republic",
+  code: 'CF',
+  name: 'Central African Republic',
   age: 18
 }, {
-  code: "KM",
-  name: "Comoros",
+  code: 'KM',
+  name: 'Comoros',
   age: 0
 }, {
-  code: "CD",
-  name: "Democratic Republic of the Congo",
+  code: 'CD',
+  name: 'Democratic Republic of the Congo',
   age: 18
 }, {
-  code: "EG",
-  name: "Egypt",
+  code: 'EG',
+  name: 'Egypt',
   age: 21
 }, {
-  code: "GQ",
-  name: "Equatorial Guinea",
+  code: 'GQ',
+  name: 'Equatorial Guinea',
   age: 0
 }, {
-  code: "ER",
-  name: "Eritrea",
+  code: 'ER',
+  name: 'Eritrea',
   age: 18
 }, {
-  code: "ET",
-  name: "Ethiopia",
+  code: 'ET',
+  name: 'Ethiopia',
   age: 18
 }, {
-  code: "GA",
-  name: "Gabon",
+  code: 'GA',
+  name: 'Gabon',
   age: 18
 }, {
-  code: "GM",
-  name: "Gambia",
+  code: 'GM',
+  name: 'Gambia',
   age: 18
 }, {
-  code: "GH",
-  name: "Ghana",
+  code: 'GH',
+  name: 'Ghana',
   age: 18
 }, {
-  code: "GW",
-  name: "Guinea-Bissau",
+  code: 'GW',
+  name: 'Guinea-Bissau',
   age: 0
 }, {
-  code: "KE",
-  name: "Kenya",
+  code: 'KE',
+  name: 'Kenya',
   age: 18
 }, {
-  name: "Lesotho",
+  name: 'Lesotho',
   age: 18
 }, {
-  code: "LY",
-  name: "Libya",
+  code: 'LY',
+  name: 'Libya',
   age: Infinity
 }, {
-  code: "MW",
-  name: "Malawi",
+  code: 'MW',
+  name: 'Malawi',
   age: 18
 }, {
-  code: "MU",
-  name: "Mauritius",
+  code: 'MU',
+  name: 'Mauritius',
   age: 18
 }, {
-  code: "MA",
-  name: "Morocco",
+  code: 'MA',
+  name: 'Morocco',
   age: 16
 }, {
-  code: "MZ",
-  name: "Mozambique",
+  code: 'MZ',
+  name: 'Mozambique',
   age: 18
 }, {
-  code: "NA",
-  name: "Namibia",
+  code: 'NA',
+  name: 'Namibia',
   age: 18
 }, {
-  code: "NE",
-  name: "Niger",
+  code: 'NE',
+  name: 'Niger',
   age: 18
 }, {
-  code: "NG",
-  name: "Nigeria",
+  code: 'NG',
+  name: 'Nigeria',
   age: 18
 }, {
-  code: "CG",
-  name: "Republic of the Congo",
+  code: 'CG',
+  name: 'Republic of the Congo',
   age: 18
 }, {
-  code: "RW",
-  name: "Rwanda",
+  code: 'RW',
+  name: 'Rwanda',
   age: 18
 }, {
-  code: "SN",
-  name: "Senegal",
+  code: 'SN',
+  name: 'Senegal',
   age: 0
 }, {
-  code: "SC",
-  name: "Seychelles",
+  code: 'SC',
+  name: 'Seychelles',
   age: 18
 }, {
-  code: "SO",
-  name: "Somalia",
+  code: 'SO',
+  name: 'Somalia',
   age: Infinity
 }, {
-  code: "ZA",
-  name: "South Africa",
+  code: 'ZA',
+  name: 'South Africa',
   age: 18
 }, {
-  code: "SS",
-  name: "South Sudan",
+  code: 'SS',
+  name: 'South Sudan',
   age: 18
 }, {
-  code: "SD",
-  name: "Sudan",
+  code: 'SD',
+  name: 'Sudan',
   age: Infinity
 }, {
-  code: "SZ",
-  name: "Swaziland",
+  code: 'SZ',
+  name: 'Swaziland',
   age: 18
 }, {
-  code: "TZ",
-  name: "Tanzania",
+  code: 'TZ',
+  name: 'Tanzania',
   age: 18
 }, {
-  code: "TG",
-  name: "Togo",
+  code: 'TG',
+  name: 'Togo',
   age: 18
 }, {
-  code: "TN",
-  name: "Tunisia",
+  code: 'TN',
+  name: 'Tunisia',
   age: 18
 }, {
-  code: "UG",
-  name: "Uganda",
+  code: 'UG',
+  name: 'Uganda',
   age: 18
 }, {
-  code: "ZM",
-  name: "Zambia",
+  code: 'ZM',
+  name: 'Zambia',
   age: 18
 }, {
-  code: "ZW",
-  name: "Zimbabwe",
+  code: 'ZW',
+  name: 'Zimbabwe',
   age: 18
 }];
 
 // America ======================================================================
 var america = [{
-  code: "AG",
-  name: "Antigua and Barbuda",
+  code: 'AG',
+  name: 'Antigua and Barbuda',
   age: 16
 }, {
-  code: "AR",
-  name: "Argentina",
+  code: 'AR',
+  name: 'Argentina',
   age: 18
 }, {
-  code: "BS",
-  name: "Bahamas",
+  code: 'BS',
+  name: 'Bahamas',
   age: 18
 }, {
-  code: "BZ",
-  name: "Belize",
+  code: 'BZ',
+  name: 'Belize',
   age: 18
 }, {
-  code: "BM",
-  name: "Bermuda",
+  code: 'BM',
+  name: 'Bermuda',
   age: 18
 }, {
-  code: "BO",
-  name: "Bolivia",
+  code: 'BO',
+  name: 'Bolivia',
   age: 18
 }, {
-  code: "BR",
-  name: "Brazil",
+  code: 'BR',
+  name: 'Brazil',
   age: 18
 }, {
-  code: "VG",
-  name: "British Virgin Islands",
+  code: 'VG',
+  name: 'British Virgin Islands',
   age: 16
 }, {
-  code: "CA",
-  name: "Canada",
+  code: 'CA',
+  name: 'Canada',
   age: 19
 }, {
-  code: "CA-2",
-  name: "Canada (AB, MB, QC)",
+  code: 'CA-2',
+  name: 'Canada (AB, MB, QC)',
   age: 18
 }, {
-  code: "KY",
-  name: "Cayman Islands",
+  code: 'KY',
+  name: 'Cayman Islands',
   age: 18
 }, {
-  code: "CL",
-  name: "Chile",
+  code: 'CL',
+  name: 'Chile',
   age: 18
 }, {
-  code: "CO",
-  name: "Colombia",
+  code: 'CO',
+  name: 'Colombia',
   age: 18
 }, {
-  code: "CR",
-  name: "Costa Rica",
+  code: 'CR',
+  name: 'Costa Rica',
   age: 18
 }, {
-  code: "CU",
-  name: "Cuba",
+  code: 'CU',
+  name: 'Cuba',
   age: 18
 }, {
-  code: "DO",
-  name: "Dominican Republic",
+  code: 'DO',
+  name: 'Dominican Republic',
   age: 18
 }, {
-  code: "EC",
-  name: "Ecuador",
+  code: 'EC',
+  name: 'Ecuador',
   age: 18
 }, {
-  code: "SV",
-  name: "El Salvador",
+  code: 'SV',
+  name: 'El Salvador',
   age: 18
 }, {
-  code: "FK",
-  name: "Falkland Islands",
+  code: 'FK',
+  name: 'Falkland Islands',
   age: 18
 }, {
-  code: "GT",
-  name: "Guatemala",
+  code: 'GT',
+  name: 'Guatemala',
   age: 18
 }, {
-  code: "GY",
-  name: "Guyana",
+  code: 'GY',
+  name: 'Guyana',
   age: 18
 }, {
-  code: "HT",
-  name: "Haiti",
+  code: 'HT',
+  name: 'Haiti',
   age: 16
 }, {
-  code: "HN",
-  name: "Honduras",
+  code: 'HN',
+  name: 'Honduras',
   age: 18
 }, {
-  code: "JM",
-  name: "Jamaica",
+  code: 'JM',
+  name: 'Jamaica',
   age: 16
 }, {
-  code: "MX",
-  name: "Mexico",
+  code: 'MX',
+  name: 'Mexico',
   age: 18
 }, {
-  code: "NI",
-  name: "Nicaragua",
+  code: 'NI',
+  name: 'Nicaragua',
   age: 18
 }, {
-  code: "PA",
-  name: "Panama",
+  code: 'PA',
+  name: 'Panama',
   age: 18
 }, {
-  code: "PY",
-  name: "Paraguay",
+  code: 'PY',
+  name: 'Paraguay',
   age: 20
 }, {
-  code: "PE",
-  name: "Peru",
+  code: 'PE',
+  name: 'Peru',
   age: 18
 }, {
-  code: "PR",
-  name: "Puerto Rico",
+  code: 'PR',
+  name: 'Puerto Rico',
   age: 18
 }, {
-  code: "TT",
-  name: "Trinidad and Tobago",
+  code: 'TT',
+  name: 'Trinidad and Tobago',
   age: 18
 }, {
-  code: "US",
-  name: "United States",
+  code: 'US',
+  name: 'United States',
   age: 21
 }, {
-  code: "VI",
-  name: "United States Virgin Islands",
+  code: 'VI',
+  name: 'United States Virgin Islands',
   age: 18
 }, {
-  code: "UY",
-  name: "Uruguay",
+  code: 'UY',
+  name: 'Uruguay',
   age: 18
 }, {
-  code: "VE",
-  name: "Venezuela",
+  code: 'VE',
+  name: 'Venezuela',
   age: 18
 }];
 
-module.exports = {
+exports['default'] = {
   Africa: africa,
   America: america
   // TODO the rest of the continents
 };
+module.exports = exports['default'];

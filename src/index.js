@@ -63,20 +63,21 @@ export default class AgeGate {
     e.preventDefault();
 
     // serialize form data
-    let form = e.srcElement, elems = form.elements, data = {};
+    this.data = {};
+    let form = e.srcElement, elems = form.elements;
 
     for (let i=0; i<elems.length; i++) {
       switch (elems[i].tagName) {
         case 'INPUT':
         case 'SELECT':
-          data[elems[i].name] = elems[i].value;
+          this.data[elems[i].name] = elems[i].value;
           break;
         default:
           break;
       }
     }
 
-    this.verify(data);
+    this.verify(this.data);
   }
 
   /**
