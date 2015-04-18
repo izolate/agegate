@@ -24,7 +24,7 @@ export default class AgeGate {
   }
 
   get legalAge() {
-    return this.defaults.age | 18;
+    return this.defaults.age || 18;
   }
 
   /**
@@ -86,9 +86,9 @@ export default class AgeGate {
    * http://stackoverflow.com/a/15555947/362136
    */
   verify(data) {
-    let valid = false, legalAge = this.countryAges[data.country] | this.legalAge;
+    let valid = false, legalAge = this.countryAges[data.country] || this.legalAge;
     let now = new Date(), dateString = [
-      data.year, data.month | now.getMonth(), data.day | now.getDate()
+      data.year, data.month || now.getMonth(), data.day || now.getDate()
     ].join('/');
     let age = ~~((now.getTime() - +new Date(dateString)) / (31557600000));
 
