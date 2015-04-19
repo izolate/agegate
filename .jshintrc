@@ -1,0 +1,9 @@
+{
+  "browser": true,
+  "browserify": true,
+  "eqeqeq": true,
+  "esnext": true,
+  "indent": 2,
+  "newcap": true,
+  "quotmark": "single"
+}
