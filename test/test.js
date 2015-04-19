@@ -36,9 +36,9 @@ describe('AgeGate', function() {
         form: form
       }, function() {});
       var old = {
-        year: today.getFullYear()-18, month: today.getMonth()+1, day: today.getDate()
+        year: today.getFullYear()-20, month: today.getMonth()+1, day: today.getDate()
       };
-      var young = { year: old.year, month: old.month, day: old.day+1 };
+      var young = { year: old.year+10, month: old.month, day: old.day };
       assert.isTrue(gate.verify(old), 'Old enough');
       assert.isFalse(gate.verify(young), 'Too young');
     });
