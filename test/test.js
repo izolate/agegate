@@ -43,5 +43,11 @@ describe('AgeGate', function() {
       assert.isFalse(gate.verify(young), 'Too young');
     });
   });
+
+  describe('Cookies', function() {
+    it('should save cookies', function() {
+      assert.isTrue(Cookies.hasItem('old_enough'));
+    });
+  });
 });
 

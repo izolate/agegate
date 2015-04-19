@@ -3,6 +3,7 @@
 ## Usage
 ```
 $ npm run js:test
+$ npm run server:test
 ```
 
-Open `test.html`
+Goto [localhost:8080](http://localhost:8080)
