@@ -1,11 +1,19 @@
 # AgeGate
-Limit access to your app with an age gate. For alcohol-related uses, contains data for the legal drinking in every country. Makes zero assumptions about your frontend; create the markup and supply the `<form>` element to the `AgeGate`, and handle success/failure via the callback function.
+Limit access to your app with an age gate that requests and validates your user's date of birth. For alcohol-related uses, it can also populate a `<select>` with countries, in order to validate against the local legal drinking age.
 
-Best part? 100% pure JavaScript, with no dependencies.
+The package is designed for modularity and therefore makes zero assumptions about your frontend; You're responsible for the markup, style and any pre or post-validation action. Create the HTML and supply the `<form>` element to the `AgeGate` on intialization (along with desired options), and handle success/failure via the callback function.
+
+100% pure JavaScript, and no dependencies.
 
 ## Demo
 
 [izolate.github.io/agegate](https://izolate.github.io/agegate)
+
+## Installation
+
+```
+$ npm i --save agegate
+```
 
 ## Usage
 
@@ -64,7 +72,7 @@ Instantiate it wherever appropriate (e.g. DOM ready) to start the age gate. An e
 
 #### Options
 
-An `object` with the following options:
+Pass an `object` as the first paramter, containing your desired options.
 
 Name | Type | Default | Required | Description
 --- | --- | --- | --- | ---
@@ -74,5 +82,5 @@ Name | Type | Default | Required | Description
 **expiry** | `number`, `Infinity`, `Date` | `0` | | Sets the expiration of the cookie in seconds. `0` is session-only. `Infinity` is forever. Supply a [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) for any custom length of time
 
 #### `Callback(err)`
-Callback function that's returned on form submit. The parameter `err` is `null` if age verification succeeds, otherwise an `Error`.
+Pass a callback function as the second parameter. This will be called after the form submit event. The parameter `err` will return `null` if age verification succeeds, otherwise it will be an `Error` type. This is where you would typically write your action based on the response, e.g. redirect to a new URL, or hide the age gate view.
 
