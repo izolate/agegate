@@ -5,4 +5,4 @@
 $ npm run js:test
 ```
 
-Open `index.html`
+Open `test.html`
