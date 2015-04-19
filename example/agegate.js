@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (err)
       throw new Error(err.message);
     else
-      console.log(`Nice1 m8`);
+      console.log(`siq1 m8`);
   });
 
 });

@@ -77,7 +77,7 @@ export default class AgeGate {
       }
     }
 
-    this.verify(this.data);
+    this.respond( this.verify(this.data) );
   }
 
   /**
@@ -101,7 +101,7 @@ export default class AgeGate {
 
     if (age >= legalAge) valid = true;
 
-    this.respond(valid);
+    return valid;
   }
 
   /**

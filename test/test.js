@@ -27,5 +27,21 @@ describe('AgeGate', function() {
       assert.isAbove(select.children.length, 0);
     });
   });
+
+  describe('Age validation', function() {
+    it('should validate ages correctly', function() {
+      var today = new Date();
+      var gate = new AgeGate({
+        age: 18,
+        form: form
+      }, function() {});
+      var old = {
+        year: today.getFullYear()-18, month: today.getMonth()+1, day: today.getDate()
+      };
+      var young = { year: old.year, month: old.month, day: old.day+1 };
+      assert.isTrue(gate.verify(old), 'Old enough');
+      assert.isFalse(gate.verify(young), 'Too young');
+    });
+  });
 });
 

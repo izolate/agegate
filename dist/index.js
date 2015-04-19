@@ -109,7 +109,7 @@ var AgeGate = (function () {
         }
       }
 
-      this.verify(this.data);
+      this.respond(this.verify(this.data));
     }
   }, {
     key: 'verify',
@@ -132,7 +132,7 @@ var AgeGate = (function () {
 
       if (age >= legalAge) valid = true;
 
-      this.respond(valid);
+      return valid;
     }
   }, {
     key: 'saveCookie',

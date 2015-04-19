@@ -461,7 +461,7 @@ var AgeGate = (function () {
   }, {
     key: 'legalAge',
     get: function () {
-      return this.defaults.age | 18;
+      return this.defaults.age || 18;
     }
   }, {
     key: 'populate',
@@ -504,22 +504,22 @@ var AgeGate = (function () {
       e.preventDefault();
 
       // serialize form data
+      this.data = {};
       var form = e.srcElement,
-          elems = form.elements,
-          data = {};
+          elems = form.elements;
 
       for (var i = 0; i < elems.length; i++) {
         switch (elems[i].tagName) {
           case 'INPUT':
           case 'SELECT':
-            data[elems[i].name] = elems[i].value;
+            this.data[elems[i].name] = elems[i].value;
             break;
           default:
             break;
         }
       }
 
-      this.verify(data);
+      this.respond(this.verify(this.data));
     }
   }, {
     key: 'verify',
@@ -532,9 +532,9 @@ var AgeGate = (function () {
      */
     value: function verify(data) {
       var valid = false,
-          legalAge = this.countryAges[data.country] | this.legalAge;
+          legalAge = this.countryAges[data.country] || this.legalAge;
       var now = new Date(),
-          dateString = [data.year, data.month | now.getMonth(), data.day | now.getDate()].join('/');
+          dateString = [data.year, data.month || now.getMonth(), data.day || now.getDate()].join('/');
       var age = ~ ~((now.getTime() - +new Date(dateString)) / 31557600000);
 
       // set cookie if desired
@@ -542,7 +542,7 @@ var AgeGate = (function () {
 
       if (age >= legalAge) valid = true;
 
-      this.respond(valid);
+      return valid;
     }
   }, {
     key: 'saveCookie',
