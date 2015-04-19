@@ -1,38 +1,35 @@
 doctype html
 html(lang='en')
   head
+    meta(charset='utf-8')
     title Agegate Example
+    link(rel='stylesheet', href='index.css')
 
   body
-    h1 Agegate example
-    p.
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
-      fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-      sunt in culpa qui officia deserunt mollit anim id est laborum."
 
-    form.agegate
-      .agegate__item
-        label
-          h2 Select your country
+    section.agegate
+      form(name='agegate', action='')
+        .agegate__item
+          label
+            h2.h5 When is your birthday?
+
+            - var today = new Date();
+            input(type='number', name='year', placeholder='YYYY',
+              min=today.getFullYear()-100, max=today.getFullYear())
+            input(type='number', name='month', placeholder='MM',
+              min='1', max='12')
+            input(type='number', name='day', placeholder='DD',
+              min='1', max='31')
+
+        .agegate__item
           select(name='country')
-            option Choose your country
-      .agegate__item
-        label
-          h2 Enter your DOB
+            option Select a country
 
-          - var currentYear = new Date().getFullYear()
-          input(type='number', name='year', placeholder='YYYY', min=currentYear-120 max=currentYear, value='1986')
-          input(type='number', name='month', placeholder='MM', min=1, max=12, value='08')
-          input(type='number', name='day', placeholder='DD', min=1, max=31, value='14')
+        .agegate__item.button-container
+          button.button.button--primary(type='submit') Verify your age
 
-      .agegate__item
-        label
-          input(type='checkbox', name='remember', checked)
-          span Remember me?
-      .agegate__item
-        button(type='submit') Enter
+        .agegate__item.checkbox
+          input(type='checkbox', name='remember')
+          span Remember me
 
     script(src='agegate-compiled.js')
