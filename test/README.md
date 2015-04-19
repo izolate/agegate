@@ -2,7 +2,7 @@
 
 ## Usage
 ```
-$ npm run js:test
+$ npm run build:test
 $ npm run server:test
 ```
 
