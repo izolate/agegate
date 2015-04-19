@@ -11,6 +11,8 @@ The package is designed for modularity and therefore makes zero assumptions abou
 
 ## Installation
 
+Available on [npm](https://www.npmjs.com/package/agegate) and is [UMD](https://github.com/umdjs/umd)-compatible.
+
 ```
 $ npm i --save agegate
 ```
