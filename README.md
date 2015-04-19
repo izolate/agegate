@@ -26,13 +26,15 @@ The maximum amount of markup you'll need is as follows. Keep the same `name` att
 </form>
 ```
 
-##### `<input type='number' name='year|month|day'>`
+#### Description
+
+__`<input type='number' name='year|month|day'>`__  
 Only `year` is **required**, but you can add the others to increase accuracy at the cost of your user's speed.
 
-##### `<input type='checkbox' name='remember'>`
+__`<input type='checkbox' name='remember'>`__  
 Lets your users decide whether to save the cookie to your desired expiration, the length of which you specify in the options. Left unchecked, the default behaviour will create a cookie that expires at the end of the session.
 
-##### `<select name='country'>`
+__`<select name='country'>`__  
 Only **required** if you set `countries: true` in the options. It will be populated with a list of countries to choose from.
 
 ### JavaScript
