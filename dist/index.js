@@ -128,9 +128,8 @@
       value: function verify(data) {
         var valid = false,
             legalAge = this.countryAges[data.country] || this.legalAge;
-        var now = new Date(),
-            dateString = [data.year, data.month || now.getMonth(), data.day || now.getDate()].join('/');
-        var age = ~ ~((now.getTime() - +new Date(dateString)) / 31557600000);
+        var date = [data.year, data.month || 1, data.day || 1].join('/');
+        var age = ~ ~((new Date().getTime() - +new Date(date)) / 31557600000);
 
         // set cookie if desired
         if (!!data.remember && data.remember === 'on') this.saveCookie(this.defaults.expiry);else this.saveCookie();

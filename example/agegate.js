@@ -1,7 +1,7 @@
 import AgeGate from '../dist/index';
 
 let options = {
-  form: document.querySelector('.agegate'),
+  form: document.querySelector('form[name=agegate]'),
   countries: true,
   expiry: Infinity,
 };

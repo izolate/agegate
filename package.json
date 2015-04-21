@@ -22,6 +22,7 @@
     "watchify": "watchify example/agegate.js -o example/agegate-compiled.js -v -t babelify",
     "js:test": "browserify test/agegate.js -o test/agegate-compiled.js",
     "js:example": "browserify example/agegate.js -t babelify -o example/agegate-compiled.js",
+    "server:example": "http-server example",
     "server:test": "http-server test"
   },
   "keywords": [
