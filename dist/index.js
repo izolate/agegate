@@ -126,7 +126,7 @@
        * http://stackoverflow.com/a/15555947/362136
        */
       value: function verify(data) {
-        var valid = false,
+        var ok = false,
             legalAge = this.countryAges[data.country] || this.legalAge;
         var date = [data.year, data.month || 1, data.day || 1].join('/');
         var age = ~ ~((new Date().getTime() - +new Date(date)) / 31557600000);
@@ -134,9 +134,9 @@
         // set cookie if desired
         if (!!data.remember && data.remember === 'on') this.saveCookie(this.defaults.expiry);else this.saveCookie();
 
-        if (age >= legalAge) valid = true;
+        if (age >= legalAge) ok = true;
 
-        return valid;
+        return ok;
       }
     }, {
       key: 'saveCookie',
@@ -156,9 +156,9 @@
        * Issue the callback with final verdict
        */
       value: function respond() {
-        var valid = arguments[0] === undefined ? false : arguments[0];
+        var success = arguments[0] === undefined ? false : arguments[0];
 
-        if (valid) this.callback(null);else this.callback(new Error('Age verification failed'));
+        if (success) this.callback(null);else this.callback(new Error('Age verification failure'));
       }
     }]);
 

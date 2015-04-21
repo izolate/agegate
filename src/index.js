@@ -87,7 +87,7 @@ export default class AgeGate {
    * http://stackoverflow.com/a/15555947/362136
    */
   verify(data) {
-    let valid = false, legalAge = this.countryAges[data.country] || this.legalAge;
+    let ok = false, legalAge = this.countryAges[data.country] || this.legalAge;
     let date = [data.year, data.month || 1, data.day || 1].join('/');
     let age = ~~((new Date().getTime() - +new Date(date)) / (31557600000));
 
@@ -97,9 +97,9 @@ export default class AgeGate {
     else
       this.saveCookie();
 
-    if (age >= legalAge) valid = true;
+    if (age >= legalAge) ok = true;
 
-    return valid;
+    return ok;
   }
 
   /**
@@ -112,10 +112,11 @@ export default class AgeGate {
   /**
    * Issue the callback with final verdict
    */
-  respond(valid=false) {
-    if (valid)
+  respond(success=false) {
+    if (success)
       this.callback(null);
     else
-      this.callback(new Error('Age verification failed'));
+      this.callback(new Error('Age verification failure'));
   }
+
 }
