@@ -74,13 +74,14 @@ Instantiate it wherever appropriate (e.g. DOM ready) to start the age gate. An e
 
 #### Options
 
-Pass an `object` as the first paramter, containing your desired options.
+Pass an `Object` as the first paramter, containing your desired options.
 
 Name | Type | Default | Required | Description
 --- | --- | --- | --- | ---
 **age** | `number` | `18` | | Custom legal age to verify against. Overridden if `countries` is set to `true`
 **form** | `Element` || ✓ | `<form>` DOM element
 **countries** | `boolean` | `false` | | For alcohol-related apps, validates age against minimum legal drinking age in selected country. Setting `true` enables the `<select>` list of countries to choose from
+**data** | `Array` | | | **Optional** - Override the defaults and populate the `<select>` with your own data. Ordered array in the format: `[{code: 'UK', name: 'United Kingdom', age: 18}, {...}, {...}]`
 **expiry** | `number`, `Infinity`, `Date` | `0` | | Sets the expiration of the cookie in seconds. `0` is session-only. `Infinity` is forever. Supply a [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) for any custom length of time
 
 #### `Callback(err)`
