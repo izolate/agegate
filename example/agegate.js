@@ -4,6 +4,11 @@ let options = {
   form: document.querySelector('form[name=agegate]'),
   countries: true,
   expiry: Infinity,
+  data: [
+    { code: 'UK', name: 'United Kingdom', age: 18 },
+    { code: 'US', name: 'United States of America', age: 21 },
+    { code: 'IN', name: 'India', age: 18 },
+  ]
 };
 
 document.addEventListener('DOMContentLoaded', function() {

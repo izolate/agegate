@@ -6,25 +6,71 @@ export default class AgeGate {
     // set defaults
     this.defaults = opts;
     this.callback = cb;
-    this.countryAges = {};
 
-    // convert age data to usable key => value
-    for (let cont in data) {
-      data[cont].map(country => this.countryAges[country.code] = country.age);
-    }
+    this.settings.data && this.validateData(opts.data); // validate data
 
     // render
-    this.countriesEnabled && this.populate();
+    this.settings.countries && this.populate();
     this.defaults.form.addEventListener('submit', this.submit.bind(this));
   }
 
-  // Getters
-  get countriesEnabled() {
-    return !!this.defaults.countries;
+  /**
+   * Getters & Setters
+   */
+  get settings() {
+    return {
+      countries: !!this.defaults.countries,
+      data: !!this.defaults.data
+    };
   }
 
   get legalAge() {
     return this.defaults.age || 18;
+  }
+
+  get data() {
+    return this.defaults.data || data;
+  }
+
+  /**
+   * Convert age data into usable key => value
+   */
+  get ages() {
+    let ages = {};
+
+    if (this.defaults.data) {
+      ages = this.data.reduce((total, item) => {
+        total[item.code] = item.age;
+        return total;
+      }, ages);
+    }
+    else {
+      for (let cont in this.data) {
+        this.data.map(country => ages[country.code] = country.age);
+      }
+    }
+
+    return ages;
+  }
+
+  /**
+   * Check data structure of supplied data
+   */
+  validateData(data) {
+    let random = Math.floor(Math.random() * (data.length - 0) + 0);
+
+    // ensure containing Array
+    let ok = (Array.isArray(data) || data instanceof Array);
+
+    // ensure object keys
+    ok = ok && [
+      'code', 'name', 'age'
+    ].every(k => data[random].hasOwnProperty(k));
+
+    if (ok)
+      return data;
+    else
+      this.respond(false, 'Supplied data is invalid');
   }
 
   /**
@@ -34,25 +80,42 @@ export default class AgeGate {
     let select = this.defaults.form.querySelector('select');
     select.innerHTML = ''; // assume it's not empty
 
-    Object.keys(data).forEach(continent => {
-      let group = document.createElement('optgroup');
-      group.label = continent;
-
-      // create the <option> for each country
-      for (let i=0; i<data[continent].length; i++) {
+    // use user-supplied data (if exists)
+    if (this.settings.data)
+      Object.keys(this.data).forEach(i => {
         let option = document.createElement('option'),
-            country = data[continent][i];
+            country = this.data[i];
 
         for (let attr in country) {
           option.dataset[attr] = country[attr];
         }
         option.value = country.code;
         option.textContent = country.name;
-        group.appendChild(option);
-      }
 
-      select.appendChild(group);
-    });
+        select.appendChild(option);
+      });
+
+    // fallback to default data (continent-separated)
+    else
+      Object.keys(data).forEach(continent => {
+        let group = document.createElement('optgroup');
+        group.label = continent;
+
+        // create the <option> for each country
+        for (let i=0; i<data[continent].length; i++) {
+          let option = document.createElement('option'),
+              country = data[continent][i];
+
+          for (let attr in country) {
+            option.dataset[attr] = country[attr];
+          }
+          option.value = country.code;
+          option.textContent = country.name;
+          group.appendChild(option);
+        }
+
+        select.appendChild(group);
+      });
   }
 
   /**
@@ -63,7 +126,7 @@ export default class AgeGate {
     e.preventDefault();
 
     // serialize form data
-    this.data = {};
+    this.formData = {};
     let form = e.srcElement, elems = form.elements;
 
     for (let i=0; i<elems.length; i++) {
@@ -77,7 +140,7 @@ export default class AgeGate {
       }
     }
 
-    this.respond( this.verify(this.data) );
+    this.respond( this.verify(this.formData) );
   }
 
   /**
@@ -86,13 +149,13 @@ export default class AgeGate {
    * Age calculator by Kristoffer Dorph
    * http://stackoverflow.com/a/15555947/362136
    */
-  verify(data) {
-    let ok = false, legalAge = this.countryAges[data.country] || this.legalAge;
-    let date = [data.year, data.month || 1, data.day || 1].join('/');
+  verify(fd) {
+    let ok = false, legalAge = this.ages[fd.country] || this.legalAge;
+    let date = [fd.year, fd.month || 1, fd.day || 1].join('/');
     let age = ~~((new Date().getTime() - +new Date(date)) / (31557600000));
 
     // set cookie if desired
-    if ( !!data.remember && data.remember === 'on' )
+    if ( !!fd.remember && fd.remember === 'on' )
       this.saveCookie(this.defaults.expiry);
     else
       this.saveCookie();
@@ -112,11 +175,11 @@ export default class AgeGate {
   /**
    * Issue the callback with final verdict
    */
-  respond(success=false) {
+  respond(success=false, message='Age verification failure') {
     if (success)
       this.callback(null);
     else
-      this.callback(new Error('Age verification failure'));
+      this.callback(new Error(message));
   }
 
 }

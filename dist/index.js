@@ -25,38 +25,85 @@
 
   var AgeGate = (function () {
     function AgeGate(opts, cb) {
-      var _this = this;
-
       _classCallCheck(this, AgeGate);
 
       // set defaults
       this.defaults = opts;
       this.callback = cb;
-      this.countryAges = {};
 
-      // convert age data to usable key => value
-      for (var cont in _data2) {
-        _data2[cont].map(function (country) {
-          return _this.countryAges[country.code] = country.age;
-        });
-      }
+      this.settings.data && this.validateData(opts.data); // validate data
 
       // render
-      this.countriesEnabled && this.populate();
+      this.settings.countries && this.populate();
       this.defaults.form.addEventListener('submit', this.submit.bind(this));
     }
 
     _createClass(AgeGate, [{
-      key: 'countriesEnabled',
+      key: 'settings',
 
-      // Getters
+      /**
+       * Getters & Setters
+       */
       get: function () {
-        return !!this.defaults.countries;
+        return {
+          countries: !!this.defaults.countries,
+          data: !!this.defaults.data
+        };
       }
     }, {
       key: 'legalAge',
       get: function () {
         return this.defaults.age || 18;
+      }
+    }, {
+      key: 'data',
+      get: function () {
+        return this.defaults.data || _data2;
+      }
+    }, {
+      key: 'ages',
+
+      /**
+       * Convert age data into usable key => value
+       */
+      get: function () {
+        var ages = {};
+
+        if (this.defaults.data) {
+          ages = this.data.reduce(function (total, item) {
+            total[item.code] = item.age;
+            return total;
+          }, ages);
+        } else {
+          for (var cont in this.data) {
+            this.data.map(function (country) {
+              return ages[country.code] = country.age;
+            });
+          }
+        }
+
+        return ages;
+      }
+    }, {
+      key: 'validateData',
+
+      /**
+       * Check data structure of supplied data
+       */
+      value: function validateData(data) {
+        var random = Math.floor(Math.random() * (data.length - 0) + 0);
+
+        // ensure containing Array
+        var ok = Array.isArray(data) || data instanceof Array;
+
+        // ensure object keys
+        ok = ok && ['code', 'name', 'age'].every(function (k) {
+          return data[random].hasOwnProperty(k);
+        });
+
+        if (ok) {
+          return data;
+        } else this.respond(false, 'Supplied data is invalid');
       }
     }, {
       key: 'populate',
@@ -65,10 +112,27 @@
        * Add countries to <select> element
        */
       value: function populate() {
+        var _this = this;
+
         var select = this.defaults.form.querySelector('select');
         select.innerHTML = ''; // assume it's not empty
 
-        Object.keys(_data2).forEach(function (continent) {
+        // use user-supplied data (if exists)
+        if (this.settings.data) Object.keys(this.data).forEach(function (i) {
+          var option = document.createElement('option'),
+              country = _this.data[i];
+
+          for (var attr in country) {
+            option.dataset[attr] = country[attr];
+          }
+          option.value = country.code;
+          option.textContent = country.name;
+
+          select.appendChild(option);
+        });
+
+        // fallback to default data (continent-separated)
+        else Object.keys(_data2).forEach(function (continent) {
           var group = document.createElement('optgroup');
           group.label = continent;
 
@@ -99,7 +163,7 @@
         e.preventDefault();
 
         // serialize form data
-        this.data = {};
+        this.formData = {};
         var form = e.srcElement,
             elems = form.elements;
 
@@ -114,7 +178,7 @@
           }
         }
 
-        this.respond(this.verify(this.data));
+        this.respond(this.verify(this.formData));
       }
     }, {
       key: 'verify',
@@ -125,14 +189,14 @@
        * Age calculator by Kristoffer Dorph
        * http://stackoverflow.com/a/15555947/362136
        */
-      value: function verify(data) {
+      value: function verify(fd) {
         var ok = false,
-            legalAge = this.countryAges[data.country] || this.legalAge;
-        var date = [data.year, data.month || 1, data.day || 1].join('/');
+            legalAge = this.ages[fd.country] || this.legalAge;
+        var date = [fd.year, fd.month || 1, fd.day || 1].join('/');
         var age = ~ ~((new Date().getTime() - +new Date(date)) / 31557600000);
 
         // set cookie if desired
-        if (!!data.remember && data.remember === 'on') this.saveCookie(this.defaults.expiry);else this.saveCookie();
+        if (!!fd.remember && fd.remember === 'on') this.saveCookie(this.defaults.expiry);else this.saveCookie();
 
         if (age >= legalAge) ok = true;
 
@@ -157,8 +221,9 @@
        */
       value: function respond() {
         var success = arguments[0] === undefined ? false : arguments[0];
+        var message = arguments[1] === undefined ? 'Age verification failure' : arguments[1];
 
-        if (success) this.callback(null);else this.callback(new Error('Age verification failure'));
+        if (success) this.callback(null);else this.callback(new Error(message));
       }
     }]);
 
