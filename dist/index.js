@@ -54,7 +54,7 @@
     }, {
       key: 'legalAge',
       get: function () {
-        return this.defaults.age || 18;
+        return parseInt(this.defaults.age) || 18;
       }
     }, {
       key: 'data',
@@ -90,6 +90,8 @@
 
       /**
        * Check data structure of supplied data
+       *
+       * @param {Array} data
        */
       value: function validateData(data) {
         var random = Math.floor(Math.random() * (data.length - 0) + 0);
@@ -154,6 +156,8 @@
       /**
        * Serialize form data on submit,
        * and pass onto validation
+       *
+       * @param {Event} e - form submit event
        */
       value: function submit(e) {
         e.preventDefault();
@@ -184,11 +188,13 @@
        * Calculate the age and insert cookie if needed
        * Age calculator by Kristoffer Dorph
        * http://stackoverflow.com/a/15555947/362136
+       *
+       * @param {Object} formData
        */
       value: function verify(formData) {
         var ok = false,
             legalAge = this.ages[formData.country] || this.legalAge;
-        var date = [formData.year, formData.month || 1, formData.day || 1].join('/');
+        var date = [parseInt(formData.year), parseInt(formData.month) || 1, parseInt(formData.day) || 1].join('/');
         var age = ~ ~((new Date().getTime() - +new Date(date)) / 31557600000);
 
         // set cookie if desired
@@ -203,6 +209,8 @@
 
       /**
        * Create a cookie to remember age
+       *
+       * @param {*} expiry - Cookie expiration (0|Infinity|Date)
        */
       value: function saveCookie() {
         var expiry = arguments[0] === undefined ? null : arguments[0];
@@ -214,6 +222,9 @@
 
       /**
        * Issue the callback with final verdict
+       *
+       * @param {boolean} success - Age verification verdict
+       * @param {string} message - Error message
        */
       value: function respond() {
         var success = arguments[0] === undefined ? false : arguments[0];

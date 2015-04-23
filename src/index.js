@@ -26,7 +26,7 @@ export default class AgeGate {
   }
 
   get legalAge() {
-    return this.defaults.age || 18;
+    return parseInt(this.defaults.age) || 18;
   }
 
   get data() {
@@ -56,6 +56,8 @@ export default class AgeGate {
 
   /**
    * Check data structure of supplied data
+   *
+   * @param {Array} data
    */
   validateData(data) {
     let random = Math.floor(Math.random() * (data.length - 0) + 0);
@@ -113,6 +115,8 @@ export default class AgeGate {
   /**
    * Serialize form data on submit,
    * and pass onto validation
+   *
+   * @param {Event} e - form submit event
    */
   submit(e) {
     e.preventDefault();
@@ -140,10 +144,14 @@ export default class AgeGate {
    * Calculate the age and insert cookie if needed
    * Age calculator by Kristoffer Dorph
    * http://stackoverflow.com/a/15555947/362136
+   *
+   * @param {Object} formData
    */
   verify(formData) {
     let ok = false, legalAge = this.ages[formData.country] || this.legalAge;
-    let date = [formData.year, formData.month || 1, formData.day || 1].join('/');
+    let date = [
+      parseInt(formData.year), parseInt(formData.month) || 1, parseInt(formData.day) || 1
+    ].join('/');
     let age = ~~((new Date().getTime() - +new Date(date)) / (31557600000));
 
     // set cookie if desired
@@ -159,6 +167,8 @@ export default class AgeGate {
 
   /**
    * Create a cookie to remember age
+   *
+   * @param {*} expiry - Cookie expiration (0|Infinity|Date)
    */
   saveCookie(expiry=null) {
     cookies.setItem('old_enough', true, expiry);
@@ -166,6 +176,9 @@ export default class AgeGate {
 
   /**
    * Issue the callback with final verdict
+   *
+   * @param {boolean} success - Age verification verdict
+   * @param {string} message - Error message
    */
   respond(success=false, message='Age verification failure') {
     if (success)
