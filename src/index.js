@@ -47,7 +47,7 @@ export default class AgeGate {
     }
     else {
       for (let cont in this.data) {
-        this.data.map(country => ages[country.code] = country.age);
+        this.data[cont].map(country => ages[country.code] = country.age);
       }
     }
 
@@ -173,5 +173,4 @@ export default class AgeGate {
     else
       this.callback(new Error(`[AgeGate] ${message}`));
   }
-
 }

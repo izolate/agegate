@@ -77,7 +77,7 @@
           }, ages);
         } else {
           for (var cont in this.data) {
-            this.data.map(function (country) {
+            this.data[cont].map(function (country) {
               return ages[country.code] = country.age;
             });
           }
