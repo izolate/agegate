@@ -169,7 +169,7 @@
           switch (elems[i].tagName) {
             case 'INPUT':
             case 'SELECT':
-              this.data[elems[i].name] = elems[i].value;
+              this.formData[elems[i].name] = elems[i].value;
               break;
             default:
               break;

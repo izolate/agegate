@@ -64,9 +64,7 @@ export default class AgeGate {
     let ok = (Array.isArray(data) || data instanceof Array);
 
     // ensure object keys
-    ok = ok && [
-      'code', 'name', 'age'
-    ].every(k => data[random].hasOwnProperty(k));
+    ok = ok && ['code', 'name', 'age'].every(k => data[random].hasOwnProperty(k));
 
     if (ok)
       return data;
@@ -83,8 +81,7 @@ export default class AgeGate {
 
     // attempt to use user-supplied data
     if (this.isEnabled.data)
-      Object.keys(this.data)
-        .forEach(i => select.appendChild( createOption(this.data[i]) ));
+      Object.keys(this.data).forEach(i => select.appendChild( createOption(this.data[i]) ));
 
     // fallback to default data (continent-separated)
     else
@@ -130,7 +127,7 @@ export default class AgeGate {
       switch (elems[i].tagName) {
         case 'INPUT':
         case 'SELECT':
-          this.data[elems[i].name] = elems[i].value;
+          this.formData[elems[i].name] = elems[i].value;
           break;
         default:
           break;
