@@ -7,18 +7,19 @@ export default class AgeGate {
     this.defaults = opts;
     this.callback = cb;
 
-    this.settings.data && this.validateData(opts.data); // validate data
+    this.isEnabled.data && this.validateData(opts.data); // validate data
 
     // render
-    this.settings.countries && this.populate();
+    this.isEnabled.countries && this.populate();
     this.defaults.form.addEventListener('submit', this.submit.bind(this));
   }
 
   /**
    * Getters & Setters
    */
-  get settings() {
+  get isEnabled() {
     return {
+      age: !!this.defaults.age,
       countries: !!this.defaults.countries,
       data: !!this.defaults.data
     };
@@ -80,20 +81,10 @@ export default class AgeGate {
     let select = this.defaults.form.querySelector('select');
     select.innerHTML = ''; // assume it's not empty
 
-    // use user-supplied data (if exists)
-    if (this.settings.data)
-      Object.keys(this.data).forEach(i => {
-        let option = document.createElement('option'),
-            country = this.data[i];
-
-        for (let attr in country) {
-          option.dataset[attr] = country[attr];
-        }
-        option.value = country.code;
-        option.textContent = country.name;
-
-        select.appendChild(option);
-      });
+    // attempt to use user-supplied data
+    if (this.isEnabled.data)
+      Object.keys(this.data)
+        .forEach(i => select.appendChild( createOption(this.data[i]) ));
 
     // fallback to default data (continent-separated)
     else
@@ -103,19 +94,25 @@ export default class AgeGate {
 
         // create the <option> for each country
         for (let i=0; i<data[continent].length; i++) {
-          let option = document.createElement('option'),
-              country = data[continent][i];
-
-          for (let attr in country) {
-            option.dataset[attr] = country[attr];
-          }
-          option.value = country.code;
-          option.textContent = country.name;
-          group.appendChild(option);
+          let country = data[continent][i];
+          group.appendChild( createOption(country) );
         }
 
         select.appendChild(group);
       });
+
+    // create the <option> element
+    function createOption(country) {
+      let option = document.createElement('option');
+
+      for (let attr in country) {
+        option.dataset[attr] = country[attr];
+      }
+      option.value = country.code;
+      option.textContent = country.name;
+
+      return option;
+    }
   }
 
   /**
@@ -179,7 +176,7 @@ export default class AgeGate {
     if (success)
       this.callback(null);
     else
-      this.callback(new Error(message));
+      this.callback(new Error(`[AgeGate]${message}`));
   }
 
 }

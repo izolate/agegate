@@ -31,21 +31,22 @@
       this.defaults = opts;
       this.callback = cb;
 
-      this.settings.data && this.validateData(opts.data); // validate data
+      this.isEnabled.data && this.validateData(opts.data); // validate data
 
       // render
-      this.settings.countries && this.populate();
+      this.isEnabled.countries && this.populate();
       this.defaults.form.addEventListener('submit', this.submit.bind(this));
     }
 
     _createClass(AgeGate, [{
-      key: 'settings',
+      key: 'isEnabled',
 
       /**
        * Getters & Setters
        */
       get: function () {
         return {
+          age: !!this.defaults.age,
           countries: !!this.defaults.countries,
           data: !!this.defaults.data
         };
@@ -117,18 +118,9 @@
         var select = this.defaults.form.querySelector('select');
         select.innerHTML = ''; // assume it's not empty
 
-        // use user-supplied data (if exists)
-        if (this.settings.data) Object.keys(this.data).forEach(function (i) {
-          var option = document.createElement('option'),
-              country = _this.data[i];
-
-          for (var attr in country) {
-            option.dataset[attr] = country[attr];
-          }
-          option.value = country.code;
-          option.textContent = country.name;
-
-          select.appendChild(option);
+        // attempt to use user-supplied data
+        if (this.isEnabled.data) Object.keys(this.data).forEach(function (i) {
+          return select.appendChild(createOption(_this.data[i]));
         });
 
         // fallback to default data (continent-separated)
@@ -138,19 +130,25 @@
 
           // create the <option> for each country
           for (var i = 0; i < _data2[continent].length; i++) {
-            var option = document.createElement('option'),
-                country = _data2[continent][i];
-
-            for (var attr in country) {
-              option.dataset[attr] = country[attr];
-            }
-            option.value = country.code;
-            option.textContent = country.name;
-            group.appendChild(option);
+            var country = _data2[continent][i];
+            group.appendChild(createOption(country));
           }
 
           select.appendChild(group);
         });
+
+        // create the <option> element
+        function createOption(country) {
+          var option = document.createElement('option');
+
+          for (var attr in country) {
+            option.dataset[attr] = country[attr];
+          }
+          option.value = country.code;
+          option.textContent = country.name;
+
+          return option;
+        }
       }
     }, {
       key: 'submit',
@@ -223,7 +221,7 @@
         var success = arguments[0] === undefined ? false : arguments[0];
         var message = arguments[1] === undefined ? 'Age verification failure' : arguments[1];
 
-        if (success) this.callback(null);else this.callback(new Error(message));
+        if (success) this.callback(null);else this.callback(new Error('[AgeGate]' + message));
       }
     }]);
 
