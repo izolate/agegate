@@ -81,8 +81,24 @@ Name | Type | Default | Required | Description
 **age** | `number` | `18` | | Custom legal age to verify against. Overridden if `countries` is set to `true`
 **form** | `Element` || ✓ | `<form>` DOM element
 **countries** | `boolean` | `false` | | For alcohol-related apps, validates age against minimum legal drinking age in selected country. Setting `true` enables the `<select>` list of countries to choose from
-**data** | `Array` | | | **Optional** - Override the defaults and populate the `<select>` with your own data. Ordered array in the format: `[{code: 'UK', name: 'United Kingdom', age: 18}, {...}, {...}]`
+**data** | `Array` | | | Override the default and populate the `<select>` with your own data in the required data structure <sup>`[1]`</sup>
 **expiry** | `number`, `Infinity`, `Date` | `0` | | Sets the expiration of the cookie in seconds. `0` is session-only. `Infinity` is forever. Supply a [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) for any custom length of time
+
+**`[1]`** Format each country's data in an `Object`, and set the country order in the enclosing `Array`. For example:
+
+```
+data = [
+  {
+    name: 'Country X',
+    code: 'XX', // two-letter ISO 3166-1 code
+    age: 18 // legal drinking age
+  },{
+    name: 'Country Y',
+    code: 'YY',
+    age: 21
+  }
+];
+```
 
 #### `Callback(err)`
 Pass a callback function as the second parameter. This will be called after the form submit event. The parameter `err` will return `null` if age verification succeeds, otherwise it will be an `Error` type. This is where you would typically write your action based on the response, e.g. redirect to a new URL, or hide the age gate view.
