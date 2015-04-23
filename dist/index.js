@@ -94,10 +94,8 @@
       value: function validateData(data) {
         var random = Math.floor(Math.random() * (data.length - 0) + 0);
 
-        // ensure containing Array
+        // ensure: containing Array and Object keys
         var ok = Array.isArray(data) || data instanceof Array;
-
-        // ensure object keys
         ok = ok && ['code', 'name', 'age'].every(function (k) {
           return data[random].hasOwnProperty(k);
         });
@@ -187,14 +185,14 @@
        * Age calculator by Kristoffer Dorph
        * http://stackoverflow.com/a/15555947/362136
        */
-      value: function verify(fd) {
+      value: function verify(formData) {
         var ok = false,
-            legalAge = this.ages[fd.country] || this.legalAge;
-        var date = [fd.year, fd.month || 1, fd.day || 1].join('/');
+            legalAge = this.ages[formData.country] || this.legalAge;
+        var date = [formData.year, formData.month || 1, formData.day || 1].join('/');
         var age = ~ ~((new Date().getTime() - +new Date(date)) / 31557600000);
 
         // set cookie if desired
-        if (!!fd.remember && fd.remember === 'on') this.saveCookie(this.defaults.expiry);else this.saveCookie();
+        if (!!formData.remember && formData.remember === 'on') this.saveCookie(this.defaults.expiry);else this.saveCookie();
 
         if (age >= legalAge) ok = true;
 
@@ -221,7 +219,7 @@
         var success = arguments[0] === undefined ? false : arguments[0];
         var message = arguments[1] === undefined ? 'Age verification failure' : arguments[1];
 
-        if (success) this.callback(null);else this.callback(new Error('[AgeGate]' + message));
+        if (success) this.callback(null);else this.callback(new Error('[AgeGate] ' + message));
       }
     }]);
 

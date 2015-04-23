@@ -60,10 +60,8 @@ export default class AgeGate {
   validateData(data) {
     let random = Math.floor(Math.random() * (data.length - 0) + 0);
 
-    // ensure containing Array
+    // ensure: containing Array and Object keys
     let ok = (Array.isArray(data) || data instanceof Array);
-
-    // ensure object keys
     ok = ok && ['code', 'name', 'age'].every(k => data[random].hasOwnProperty(k));
 
     if (ok)
@@ -143,13 +141,13 @@ export default class AgeGate {
    * Age calculator by Kristoffer Dorph
    * http://stackoverflow.com/a/15555947/362136
    */
-  verify(fd) {
-    let ok = false, legalAge = this.ages[fd.country] || this.legalAge;
-    let date = [fd.year, fd.month || 1, fd.day || 1].join('/');
+  verify(formData) {
+    let ok = false, legalAge = this.ages[formData.country] || this.legalAge;
+    let date = [formData.year, formData.month || 1, formData.day || 1].join('/');
     let age = ~~((new Date().getTime() - +new Date(date)) / (31557600000));
 
     // set cookie if desired
-    if ( !!fd.remember && fd.remember === 'on' )
+    if ( !!formData.remember && formData.remember === 'on' )
       this.saveCookie(this.defaults.expiry);
     else
       this.saveCookie();
@@ -173,7 +171,7 @@ export default class AgeGate {
     if (success)
       this.callback(null);
     else
-      this.callback(new Error(`[AgeGate]${message}`));
+      this.callback(new Error(`[AgeGate] ${message}`));
   }
 
 }
