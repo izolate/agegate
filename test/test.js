@@ -28,13 +28,30 @@ describe('AgeGate', function() {
     });
   });
 
-  describe('Age validation', function() {
+  describe('Validation', function() {
+    it('should validate supplied data', function() {
+      var gate = new AgeGate({
+        age: 18,
+        form: form
+      }, function(err) {
+        if (err)
+          assert.equal(err.message, '[AgeGate] Supplied data is invalid');
+      });
+
+      var valid = [{name: 'United Kingdom', code: 'UK', age: 18}];
+      var invalid = [{this: 1 , is: 2, invalid: 3}];
+
+      assert.equal(gate.validateData(valid), valid);
+      gate.validateData(invalid);
+    });
+
     it('should validate ages correctly', function() {
-      var today = new Date();
       var gate = new AgeGate({
         age: 18,
         form: form
       }, function() {});
+
+      var today = new Date();
       var old = {
         year: today.getFullYear()-20, month: today.getMonth()+1, day: today.getDate()
       };
