@@ -1,3 +1,7 @@
+# 1.0.0 (2015-04-25)
+### Additions
+* Finished country drinking age dataset
+
 # 0.3.0 (2015-04-23)
 ### Additions
 * Add `data` option to allow override of default country drinking age data
