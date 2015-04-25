@@ -1,6 +1,6 @@
-# 1.0.0 (2015-04-25)
+# 1.0.0 (2015-04-26)
 ### Additions
-* Finished country drinking age dataset
+* Added the rest of the countries to the data file
 
 # 0.3.0 (2015-04-23)
 ### Additions
