@@ -315,8 +315,70 @@ let america = [
   }
 ];
 
+// Oceania =====================================================================
+let oceania = [
+  {
+    code: 'AS',
+    name: 'American Samoa',
+    age: 21
+  },{
+    code: 'AU',
+    name: 'Australia',
+    age: 18
+  },{
+    code: 'FJ',
+    name: 'Fiji',
+    age: 18
+  },{
+    code: 'GU',
+    name: 'Guam',
+    age: 21
+  },{
+    code: 'FM',
+    name: 'Federated States of Micronesia',
+    age: 21
+  },{
+    code: 'NZ',
+    name: 'New Zealand',
+    age: 18
+  },{
+    code: 'MP',
+    name: 'Northern Mariana Islands',
+    age: 21
+  },{
+    code: 'PW',
+    name: 'Palau',
+    age: 21
+  },{
+    code: 'PG',
+    name: 'Papua New Guinea',
+    age: 18
+  },{
+    code: 'WS',
+    name: 'Samoa',
+    age: 18
+  },{
+    code: 'SB',
+    name: 'Solomon Islands',
+    age: 21
+  },{
+    code: 'TK',
+    name: 'Tokelau',
+    age: 18
+  },{
+    code: 'TO',
+    name: 'Tonga',
+    age: 21
+  },{
+    code: 'VU',
+    name: 'Vanuatu',
+    age: 18
+  }
+];
+
 export default {
   Africa: africa,
-  America: america
+  America: america,
+  Oceania: oceania
   // TODO the rest of the continents
 };
