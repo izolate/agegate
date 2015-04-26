@@ -1,9 +1,14 @@
-# 1.0.0 (2015-04-26)
-### Additions
+# 1.0.0 (2015-04-27)
+### Features
 * Added the rest of the countries to the data file
 
+### Bugs
+* Re-written the method to serialize form data to be more secure
+* Corrected the method for retrieval of input's checked value
+* Renamed property `defaults` to `options`
+
 # 0.3.0 (2015-04-23)
-### Additions
+### Features
 * Add `data` option to allow override of default country drinking age data
 * JSDoc comments
 * Test for data validation
@@ -14,7 +19,7 @@
 * `parseInt()` called on numeric form data
 
 # 0.2.0 (2015-04-20)
-### Additions
+### Features
 * Build UMD modules, instead of purely CommonJS
 * Test for saving cookies
 * Styled example page
