@@ -23,19 +23,21 @@
 
   var _cookies2 = _interopRequire(_cookies);
 
+  var FORM_ELEMENTS = ['year', 'month', 'day', 'country', 'remember'];
+
   var AgeGate = (function () {
     function AgeGate(opts, cb) {
       _classCallCheck(this, AgeGate);
 
-      // set defaults
-      this.defaults = opts;
+      // set options
+      this.options = opts;
       this.callback = cb;
 
       this.isEnabled.data && this.validateData(opts.data); // validate data
 
       // render
       this.isEnabled.countries && this.populate();
-      this.defaults.form.addEventListener('submit', this.submit.bind(this));
+      this.options.form.addEventListener('submit', this.submit.bind(this));
     }
 
     _createClass(AgeGate, [{
@@ -46,20 +48,20 @@
        */
       get: function () {
         return {
-          age: !!this.defaults.age,
-          countries: !!this.defaults.countries,
-          data: !!this.defaults.data
+          age: !!this.options.age,
+          countries: !!this.options.countries,
+          data: !!this.options.data
         };
       }
     }, {
       key: 'legalAge',
       get: function () {
-        return parseInt(this.defaults.age) || 18;
+        return parseFloat(this.options.age) || 18;
       }
     }, {
       key: 'data',
       get: function () {
-        return this.defaults.data || _data2;
+        return this.options.data || _data2;
       }
     }, {
       key: 'ages',
@@ -70,7 +72,7 @@
       get: function () {
         var ages = {};
 
-        if (this.defaults.data) {
+        if (this.options.data) {
           ages = this.data.reduce(function (total, item) {
             total[item.code] = item.age;
             return total;
@@ -115,7 +117,7 @@
       value: function populate() {
         var _this = this;
 
-        var select = this.defaults.form.querySelector('select');
+        var select = this.options.form.querySelector('select');
         select.innerHTML = ''; // assume it's not empty
 
         // attempt to use user-supplied data
@@ -162,21 +164,23 @@
       value: function submit(e) {
         e.preventDefault();
 
-        // serialize form data
-        this.formData = {};
-        var form = e.srcElement,
-            elems = form.elements;
+        var elements = e.srcElement.elements;
 
-        for (var i = 0; i < elems.length; i++) {
-          switch (elems[i].tagName) {
-            case 'INPUT':
-            case 'SELECT':
-              this.formData[elems[i].name] = elems[i].value;
+        // create an object from the form data
+        this.formData = FORM_ELEMENTS.reduce(function (collection, key) {
+          if (!elements[key]) return collection;
+
+          switch (key) {
+            case 'remember':
+              collection[key] = elements[key].checked;
               break;
             default:
+              collection[key] = elements[key].value;
               break;
           }
-        }
+
+          return collection;
+        }, {});
 
         this.respond(this.verify(this.formData));
       }
@@ -194,11 +198,11 @@
       value: function verify(formData) {
         var ok = false,
             legalAge = this.ages[formData.country] || this.legalAge;
-        var date = [parseInt(formData.year), parseInt(formData.month) || 1, parseInt(formData.day) || 1].join('/');
+        var date = [parseFloat(formData.year), parseFloat(formData.month) || 1, parseFloat(formData.day) || 1].join('/');
         var age = ~ ~((new Date().getTime() - +new Date(date)) / 31557600000);
 
         // set cookie if desired
-        if (!!formData.remember && formData.remember === 'on') this.saveCookie(this.defaults.expiry);else this.saveCookie();
+        if (!!formData.remember) this.saveCookie(this.options.expiry);else this.saveCookie();
 
         if (age >= legalAge) ok = true;
 

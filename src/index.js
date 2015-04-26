@@ -1,17 +1,19 @@
 import data from './data';
 import cookies from './cookies';
 
+const FORM_ELEMENTS = ['year', 'month', 'day', 'country', 'remember'];
+
 export default class AgeGate {
   constructor(opts, cb) {
-    // set defaults
-    this.defaults = opts;
+    // set options
+    this.options = opts;
     this.callback = cb;
 
     this.isEnabled.data && this.validateData(opts.data); // validate data
 
     // render
     this.isEnabled.countries && this.populate();
-    this.defaults.form.addEventListener('submit', this.submit.bind(this));
+    this.options.form.addEventListener('submit', this.submit.bind(this));
   }
 
   /**
@@ -19,18 +21,18 @@ export default class AgeGate {
    */
   get isEnabled() {
     return {
-      age: !!this.defaults.age,
-      countries: !!this.defaults.countries,
-      data: !!this.defaults.data
+      age: !!this.options.age,
+      countries: !!this.options.countries,
+      data: !!this.options.data
     };
   }
 
   get legalAge() {
-    return parseInt(this.defaults.age) || 18;
+    return parseFloat(this.options.age) || 18;
   }
 
   get data() {
-    return this.defaults.data || data;
+    return this.options.data || data;
   }
 
   /**
@@ -39,7 +41,7 @@ export default class AgeGate {
   get ages() {
     let ages = {};
 
-    if (this.defaults.data) {
+    if (this.options.data) {
       ages = this.data.reduce((total, item) => {
         total[item.code] = item.age;
         return total;
@@ -76,7 +78,7 @@ export default class AgeGate {
    * Add countries to <select> element
    */
   populate() {
-    let select = this.defaults.form.querySelector('select');
+    let select = this.options.form.querySelector('select');
     select.innerHTML = ''; // assume it's not empty
 
     // attempt to use user-supplied data
@@ -121,20 +123,23 @@ export default class AgeGate {
   submit(e) {
     e.preventDefault();
 
-    // serialize form data
-    this.formData = {};
-    let form = e.srcElement, elems = form.elements;
+    let elements = e.srcElement.elements;
 
-    for (let i=0; i<elems.length; i++) {
-      switch (elems[i].tagName) {
-        case 'INPUT':
-        case 'SELECT':
-          this.formData[elems[i].name] = elems[i].value;
+    // create an object from the form data
+    this.formData = FORM_ELEMENTS.reduce((collection, key) => {
+      if (!elements[key]) return collection;
+
+      switch (key) {
+        case 'remember':
+          collection[key] = elements[key].checked;
           break;
         default:
+          collection[key] = elements[key].value;
           break;
       }
-    }
+
+      return collection;
+    }, {});
 
     this.respond( this.verify(this.formData) );
   }
@@ -150,13 +155,13 @@ export default class AgeGate {
   verify(formData) {
     let ok = false, legalAge = this.ages[formData.country] || this.legalAge;
     let date = [
-      parseInt(formData.year), parseInt(formData.month) || 1, parseInt(formData.day) || 1
+      parseFloat(formData.year), parseFloat(formData.month) || 1, parseFloat(formData.day) || 1
     ].join('/');
     let age = ~~((new Date().getTime() - +new Date(date)) / (31557600000));
 
     // set cookie if desired
-    if ( !!formData.remember && formData.remember === 'on' )
-      this.saveCookie(this.defaults.expiry);
+    if ( !!formData.remember )
+      this.saveCookie(this.options.expiry);
     else
       this.saveCookie();
 
