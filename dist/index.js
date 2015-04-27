@@ -115,14 +115,12 @@
        * Add countries to <select> element
        */
       value: function populate() {
-        var _this = this;
-
         var select = this.options.form.querySelector('select');
         select.innerHTML = ''; // assume it's not empty
 
         // attempt to use user-supplied data
-        if (this.isEnabled.data) Object.keys(this.data).forEach(function (i) {
-          return select.appendChild(createOption(_this.data[i]));
+        if (this.isEnabled.data) this.data.forEach(function (country) {
+          return select.appendChild(createOption(country));
         });
 
         // fallback to default data (continent-separated)

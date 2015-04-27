@@ -83,7 +83,7 @@ export default class AgeGate {
 
     // attempt to use user-supplied data
     if (this.isEnabled.data)
-      Object.keys(this.data).forEach(i => select.appendChild( createOption(this.data[i]) ));
+      this.data.forEach(country => select.appendChild( createOption(country) ));
 
     // fallback to default data (continent-separated)
     else
