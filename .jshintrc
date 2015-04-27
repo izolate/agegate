@@ -3,6 +3,7 @@
   "browserify": true,
   "eqeqeq": true,
   "esnext": true,
+  "expr": true,
   "indent": 2,
   "newcap": true,
   "quotmark": "single"

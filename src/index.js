@@ -5,11 +5,9 @@ const FORM_ELEMENTS = ['year', 'month', 'day', 'country', 'remember'];
 
 export default class AgeGate {
   constructor(opts, cb) {
-    // set options
     this.options = opts;
     this.callback = cb;
-
-    this.isEnabled.data && this.validateData(opts.data); // validate data
+    this.isEnabled.data && this.validateData(opts.data);
 
     // render
     this.isEnabled.countries && this.populate();

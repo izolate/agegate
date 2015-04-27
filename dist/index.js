@@ -29,11 +29,9 @@
     function AgeGate(opts, cb) {
       _classCallCheck(this, AgeGate);
 
-      // set options
       this.options = opts;
       this.callback = cb;
-
-      this.isEnabled.data && this.validateData(opts.data); // validate data
+      this.isEnabled.data && this.validateData(opts.data);
 
       // render
       this.isEnabled.countries && this.populate();
