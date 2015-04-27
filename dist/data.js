@@ -1,20 +1,22 @@
 (function (global, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['exports', 'module'], factory);
-  } else if (typeof exports !== 'undefined' && typeof module !== 'undefined') {
-    factory(exports, module);
+    define(['exports'], factory);
+  } else if (typeof exports !== 'undefined') {
+    factory(exports);
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, mod);
+    factory(mod.exports);
     global.data = mod.exports;
   }
-})(this, function (exports, module) {
-  // Africa =======================================================================
+})(this, function (exports) {
   'use strict';
 
-  var africa = [{
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+  var Africa = [{
     code: 'DZ',
     name: 'Algeria',
     age: 18
@@ -183,8 +185,8 @@
     age: 18
   }];
 
-  // America ======================================================================
-  var america = [{
+  exports.Africa = Africa;
+  var America = [{
     code: 'AG',
     name: 'Antigua and Barbuda',
     age: 16
@@ -220,10 +222,6 @@
     code: 'CA',
     name: 'Canada',
     age: 19
-  }, {
-    code: 'CA-2',
-    name: 'Canada (AB, MB, QC)',
-    age: 18
   }, {
     code: 'KY',
     name: 'Cayman Islands',
@@ -326,8 +324,14 @@
     age: 18
   }];
 
-  // Oceania =====================================================================
-  var oceania = [{
+  exports.America = America;
+  var Asia = [{ code: 'AF', name: 'Afghanistan', age: Infinity }, { code: 'BD', name: 'Bangladesh', age: Infinity }, { code: 'BN', name: 'Brunei', age: Infinity }, { code: 'KH', name: 'Cambodia', age: 0 }, { code: 'CN', name: 'China', age: 18 }, { code: 'HK', name: 'Hong Kong', age: 18 }, { code: 'IN', name: 'India', age: 18 }, { code: 'ID', name: 'Indonesia', age: 21 }, { code: 'IR', name: 'Iran', age: 18 }, { code: 'JQ', name: 'Iraq', age: 18 }, { code: 'IL', name: 'Israel', age: 18 }, { code: 'JP', name: 'Japan', age: 20 }, { code: 'JO', name: 'Jordan', age: 18 }, { code: 'KZ', name: 'Kazakhstan', age: 21 }, { code: 'KW', name: 'Kuwait', age: Infinity }, { code: 'KG', name: 'Kyrgyzstan', age: 18 }, { code: 'LB', name: 'Lebanon', age: 18 }, { code: 'MO', name: 'Macau', age: 18 }, { code: 'MY', name: 'Malaysia', age: 18 }, { code: 'MV', name: 'Maldives', age: 18 }, { code: 'MN', name: 'Mongolia', age: 18 }, { code: 'NP', name: 'Nepal', age: 18 }, { code: 'KP', name: 'North Korea', age: 18 }, { code: 'OM', name: 'Oman', age: 21 }, { code: 'PK', name: 'Pakistan', age: 21 }, { code: 'PS', name: 'Palestine', age: 16 }, { code: 'PH', name: 'Philippines', age: 18 }, { code: 'QA', name: 'Qatar', age: 21 }, { code: 'SA', name: 'Saudi Arabia', age: Infinity }, { code: 'SG', name: 'Singapore', age: 18 }, { code: 'KR', name: 'South Korea', age: 19 }, { code: 'LK', name: 'Sri Lanka', age: 21 }, { code: 'SY', name: 'Syria', age: 18 }, { code: 'TW', name: 'Taiwan', age: 18 }, { code: 'TJ', name: 'Tajikistan', age: 21 }, { code: 'TH', name: 'Thailand', age: 21 }, { code: 'TM', name: 'Turkmenistan', age: 18 }, { code: 'AE', name: 'United Arab Emirates', age: 21 }, { code: 'VN', name: 'Vietnam', age: 0 }, { code: 'YE', name: 'Yemen', age: Infinity }];
+
+  exports.Asia = Asia;
+  var Europe = [{ code: 'AL', name: 'Albania', age: 18 }, { code: 'AM', name: 'Armenia', age: 18 }, { code: 'AT', name: 'Austria', age: 18 }, { code: 'AZ', name: 'Azerbaijan', age: 18 }, { code: 'BY', name: 'Belarus', age: 18 }, { code: 'BE', name: 'Belgium', age: 18 }, { code: 'BA', name: 'Bosnia and Herzegovina', age: 18 }, { code: 'BG', name: 'Bulgaria', age: 18 }, { code: 'HR', name: 'Croatia', age: 18 }, { code: 'CY', name: 'Cyprus', age: 17 }, { code: 'CZ', name: 'Czech Republic', age: 18 }, { code: 'DK', name: 'Denmark', age: 18 }, { code: 'EE', name: 'Estonia', age: 18 }, { code: 'FI', name: 'Finland', age: 18 }, { code: 'FR', name: 'France', age: 18 }, { code: 'GE', name: 'Georgia', age: 16 }, { code: 'DE', name: 'Germany', age: 18 }, { code: 'GI', name: 'Gibraltar', age: 18 }, { code: 'GR', name: 'Greece', age: 18 }, { code: 'HU', name: 'Hungary', age: 18 }, { code: 'IS', name: 'Iceland', age: 20 }, { code: 'IE', name: 'Ireland', age: 18 }, { code: 'IT', name: 'Italy', age: 18 }, { code: 'XK', name: 'Kosovo', age: 18 }, { code: 'LV', name: 'Latvia', age: 18 }, { code: 'LI', name: 'Liechtenstein', age: 18 }, { code: 'LT', name: 'Lithuania', age: 18 }, { code: 'LU', name: 'Luxembourg', age: 16 }, { code: 'MK', name: 'Macedonia', age: 18 }, { code: 'MT', name: 'Malta', age: 17 }, { code: 'MD', name: 'Moldova', age: 16 }, { code: 'ME', name: 'Montenegro', age: 18 }, { code: 'NL', name: 'Netherlands', age: 18 }, { code: 'NO', name: 'Norway', age: 20 }, { code: 'PL', name: 'Poland', age: 18 }, { code: 'PT', name: 'Portugal', age: 18 }, { code: 'RO', name: 'Romania', age: 18 }, { code: 'RU', name: 'Russia', age: 18 }, { code: 'RS', name: 'Serbia', age: 18 }, { code: 'SK', name: 'Slovakia', age: 18 }, { code: 'SI', name: 'Slovenia', age: 18 }, { code: 'ES', name: 'Spain', age: 18 }, { code: 'SE', name: 'Sweden', age: 18 }, { code: 'CH', name: 'Switzerland', age: 18 }, { code: 'TR', name: 'Turkey', age: 18 }, { code: 'UA', name: 'Ukraine', age: 18 }, { code: 'GB', name: 'United Kingdom', age: 18 }];
+
+  exports.Europe = Europe;
+  var Oceania = [{
     code: 'AS',
     name: 'American Samoa',
     age: 21
@@ -384,11 +388,5 @@
     name: 'Vanuatu',
     age: 18
   }];
-
-  module.exports = {
-    Africa: africa,
-    America: america,
-    Oceania: oceania
-    // TODO the rest of the continents
-  };
+  exports.Oceania = Oceania;
 });

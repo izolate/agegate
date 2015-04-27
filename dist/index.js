@@ -19,8 +19,6 @@
 
   var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-  var _data2 = _interopRequire(_data);
-
   var _cookies2 = _interopRequire(_cookies);
 
   var FORM_ELEMENTS = ['year', 'month', 'day', 'country', 'remember'];
@@ -59,7 +57,7 @@
     }, {
       key: 'data',
       get: function () {
-        return this.options.data || _data2;
+        return this.options.data || _data;
       }
     }, {
       key: 'ages',
@@ -122,13 +120,13 @@
         });
 
         // fallback to default data (continent-separated)
-        else Object.keys(_data2).forEach(function (continent) {
+        else Object.keys(_data).forEach(function (continent) {
           var group = document.createElement('optgroup');
           group.label = continent;
 
           // create the <option> for each country
-          for (var i = 0; i < _data2[continent].length; i++) {
-            var country = _data2[continent][i];
+          for (var i = 0; i < _data[continent].length; i++) {
+            var country = _data[continent][i];
             group.appendChild(createOption(country));
           }
 
