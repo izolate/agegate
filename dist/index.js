@@ -195,10 +195,12 @@
         var bday = [parseInt(formData.year, 10), parseInt(formData.month, 10) || 1, parseInt(formData.day, 10) || 1].join('/');
         var age = ~ ~((new Date().getTime() - +new Date(bday)) / 31557600000);
 
-        // set cookie if desired
-        if (!!formData.remember) this.saveCookie(this.options.expiry);else this.saveCookie();
+        if (age >= legalAge) {
+          var expiry = !!formData.remember ? this.options.expiry : null;
+          this.saveCookie(expiry);
 
-        if (age >= legalAge) ok = true;
+          ok = true;
+        }
 
         return ok;
       }

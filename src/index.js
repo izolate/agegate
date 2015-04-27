@@ -159,13 +159,12 @@ export default class AgeGate {
     ].join('/');
     let age = ~~((new Date().getTime() - +new Date(bday)) / (31557600000));
 
-    // set cookie if desired
-    if ( !!formData.remember )
-      this.saveCookie(this.options.expiry);
-    else
-      this.saveCookie();
+    if (age >= legalAge) {
+      let expiry = !!formData.remember? this.options.expiry : null;
+      this.saveCookie(expiry);
 
-    if (age >= legalAge) ok = true;
+      ok = true;
+    }
 
     return ok;
   }
