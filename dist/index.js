@@ -56,7 +56,7 @@
     }, {
       key: 'legalAge',
       get: function () {
-        return parseFloat(this.options.age) || 18;
+        return parseInt(this.options.age, 10) || 18;
       }
     }, {
       key: 'data',
@@ -196,8 +196,8 @@
       value: function verify(formData) {
         var ok = false,
             legalAge = this.ages[formData.country] || this.legalAge;
-        var date = [parseFloat(formData.year), parseFloat(formData.month) || 1, parseFloat(formData.day) || 1].join('/');
-        var age = ~ ~((new Date().getTime() - +new Date(date)) / 31557600000);
+        var bday = [parseInt(formData.year, 10), parseInt(formData.month, 10) || 1, parseInt(formData.day, 10) || 1].join('/');
+        var age = ~ ~((new Date().getTime() - +new Date(bday)) / 31557600000);
 
         // set cookie if desired
         if (!!formData.remember) this.saveCookie(this.options.expiry);else this.saveCookie();

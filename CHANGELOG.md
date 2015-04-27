@@ -6,6 +6,7 @@
 * Re-written the method to serialize form data to be more secure
 * Corrected the method for retrieval of input's checked value
 * Renamed property `defaults` to `options`
+* Indicated the base number on `parseInt()`
 
 # 0.3.0 (2015-04-23)
 ### Features

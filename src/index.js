@@ -28,7 +28,7 @@ export default class AgeGate {
   }
 
   get legalAge() {
-    return parseFloat(this.options.age) || 18;
+    return parseInt(this.options.age, 10) || 18;
   }
 
   get data() {
@@ -154,10 +154,12 @@ export default class AgeGate {
    */
   verify(formData) {
     let ok = false, legalAge = this.ages[formData.country] || this.legalAge;
-    let date = [
-      parseFloat(formData.year), parseFloat(formData.month) || 1, parseFloat(formData.day) || 1
+    let bday = [
+      parseInt(formData.year, 10),
+      parseInt(formData.month, 10) || 1,
+      parseInt(formData.day, 10) || 1
     ].join('/');
-    let age = ~~((new Date().getTime() - +new Date(date)) / (31557600000));
+    let age = ~~((new Date().getTime() - +new Date(bday)) / (31557600000));
 
     // set cookie if desired
     if ( !!formData.remember )
