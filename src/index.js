@@ -121,7 +121,7 @@ export default class AgeGate {
   submit(e) {
     e.preventDefault();
 
-    let elements = e.srcElement.elements;
+    let elements = e.target.elements;
 
     // create an object from the form data
     this.formData = FORM_ELEMENTS.reduce((collection, key) => {

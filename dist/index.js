@@ -158,7 +158,7 @@
       value: function submit(e) {
         e.preventDefault();
 
-        var elements = e.srcElement.elements;
+        var elements = e.target.elements;
 
         // create an object from the form data
         this.formData = FORM_ELEMENTS.reduce(function (collection, key) {
