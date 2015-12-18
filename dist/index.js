@@ -1,25 +1,21 @@
 (function (global, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['exports', 'module', './data', './cookies'], factory);
+    define(['exports', 'module', './data'], factory);
   } else if (typeof exports !== 'undefined' && typeof module !== 'undefined') {
-    factory(exports, module, require('./data'), require('./cookies'));
+    factory(exports, module, require('./data'));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, mod, global.data, global.cookies);
+    factory(mod.exports, mod, global.data);
     global.index = mod.exports;
   }
-})(this, function (exports, module, _data, _cookies) {
+})(this, function (exports, module, _data) {
   'use strict';
-
-  var _interopRequire = function (obj) { return obj && obj.__esModule ? obj['default'] : obj; };
-
-  var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
 
   var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-  var _cookies2 = _interopRequire(_cookies);
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
   var FORM_ELEMENTS = ['year', 'month', 'day', 'country', 'remember'];
 
@@ -36,54 +32,11 @@
       this.options.form.addEventListener('submit', this.submit.bind(this));
     }
 
+    /**
+     * Getters & Setters
+     */
+
     _createClass(AgeGate, [{
-      key: 'isEnabled',
-
-      /**
-       * Getters & Setters
-       */
-      get: function () {
-        return {
-          age: !!this.options.age,
-          countries: !!this.options.countries,
-          data: !!this.options.data
-        };
-      }
-    }, {
-      key: 'legalAge',
-      get: function () {
-        return parseInt(this.options.age, 10) || 18;
-      }
-    }, {
-      key: 'data',
-      get: function () {
-        return this.options.data || _data;
-      }
-    }, {
-      key: 'ages',
-
-      /**
-       * Convert age data into usable key => value
-       */
-      get: function () {
-        var ages = {};
-
-        if (this.options.data) {
-          ages = this.data.reduce(function (total, item) {
-            total[item.code] = item.age;
-            return total;
-          }, ages);
-        } else {
-          for (var cont in this.data) {
-            this.data[cont].map(function (country) {
-              return ages[country.code] = country.age;
-            });
-          }
-        }
-
-        return ages;
-      }
-    }, {
       key: 'validateData',
 
       /**
@@ -100,16 +53,14 @@
           return data[random].hasOwnProperty(k);
         });
 
-        if (ok) {
-          return data;
-        } else this.respond(false, 'Supplied data is invalid');
+        return ok ? data : this.respond(false, 'Supplied data is invalid');
       }
-    }, {
-      key: 'populate',
 
       /**
        * Add countries to <select> element
        */
+    }, {
+      key: 'populate',
       value: function populate() {
         var select = this.options.form.querySelector('select');
         select.innerHTML = ''; // assume it's not empty
@@ -121,17 +72,17 @@
 
         // fallback to default data (continent-separated)
         else Object.keys(_data).forEach(function (continent) {
-          var group = document.createElement('optgroup');
-          group.label = continent;
+            var group = document.createElement('optgroup');
+            group.label = continent;
 
-          // create the <option> for each country
-          for (var i = 0; i < _data[continent].length; i++) {
-            var country = _data[continent][i];
-            group.appendChild(createOption(country));
-          }
+            // create the <option> for each country
+            for (var i = 0; i < _data[continent].length; i++) {
+              var country = _data[continent][i];
+              group.appendChild(createOption(country));
+            }
 
-          select.appendChild(group);
-        });
+            select.appendChild(group);
+          });
 
         // create the <option> element
         function createOption(country) {
@@ -146,8 +97,6 @@
           return option;
         }
       }
-    }, {
-      key: 'submit',
 
       /**
        * Serialize form data on submit,
@@ -155,6 +104,8 @@
        *
        * @param {Event} e - form submit event
        */
+    }, {
+      key: 'submit',
       value: function submit(e) {
         e.preventDefault();
 
@@ -178,8 +129,6 @@
 
         this.respond(this.verify(this.formData));
       }
-    }, {
-      key: 'verify',
 
       /**
        * Parse form data
@@ -189,6 +138,8 @@
        *
        * @param {Object} formData
        */
+    }, {
+      key: 'verify',
       value: function verify(formData) {
         var ok = false,
             legalAge = this.ages[formData.country] || this.legalAge;
@@ -204,21 +155,22 @@
 
         return ok;
       }
-    }, {
-      key: 'saveCookie',
 
       /**
        * Create a cookie to remember age
        *
        * @param {*} expiry - Cookie expiration (0|Infinity|Date)
        */
-      value: function saveCookie() {
-        var expiry = arguments[0] === undefined ? null : arguments[0];
-
-        _cookies2.setItem('old_enough', true, expiry);
-      }
     }, {
-      key: 'respond',
+      key: 'saveCookie',
+      value: function saveCookie() {
+        var expiry = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+
+        var path = this.options.path || null;
+        var domain = this.options.domain || null;
+
+        cookies.setItem('old_enough', true, expiry, path, domain);
+      }
 
       /**
        * Issue the callback with final verdict
@@ -226,11 +178,56 @@
        * @param {boolean} success - Age verification verdict
        * @param {string} message - Error message
        */
+    }, {
+      key: 'respond',
       value: function respond() {
-        var success = arguments[0] === undefined ? false : arguments[0];
-        var message = arguments[1] === undefined ? 'Age verification failure' : arguments[1];
+        var success = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+        var message = arguments.length <= 1 || arguments[1] === undefined ? 'Age verification failure' : arguments[1];
 
         if (success) this.callback(null);else this.callback(new Error('[AgeGate] ' + message));
+      }
+    }, {
+      key: 'isEnabled',
+      get: function get() {
+        return {
+          age: !!this.options.age,
+          countries: !!this.options.countries,
+          data: !!this.options.data
+        };
+      }
+    }, {
+      key: 'legalAge',
+      get: function get() {
+        return parseInt(this.options.age, 10) || 18;
+      }
+    }, {
+      key: 'data',
+      get: function get() {
+        return this.options.data || _data;
+      }
+
+      /**
+       * Convert age data into usable key => value
+       */
+    }, {
+      key: 'ages',
+      get: function get() {
+        var ages = {};
+
+        if (this.options.data) {
+          ages = this.data.reduce(function (total, item) {
+            total[item.code] = item.age;
+            return total;
+          }, ages);
+        } else {
+          for (var cont in this.data) {
+            this.data[cont].map(function (country) {
+              return ages[country.code] = country.age;
+            });
+          }
+        }
+
+        return ages;
       }
     }]);
 

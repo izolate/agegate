@@ -85,7 +85,7 @@ export default class AgeGate {
       group.label = continent
 
       // create the <option> for each country
-      for (let i=0 i<data[continent].length i++) {
+      for (let i=0; i < data[continent].length; i++) {
         let country = data[continent][i]
         group.appendChild( createOption(country) )
       }
