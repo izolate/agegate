@@ -1,21 +1,25 @@
 (function (global, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['exports', 'module', './data'], factory);
+    define(['exports', 'module', './data', './cookies'], factory);
   } else if (typeof exports !== 'undefined' && typeof module !== 'undefined') {
-    factory(exports, module, require('./data'));
+    factory(exports, module, require('./data'), require('./cookies'));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, mod, global.data);
+    factory(mod.exports, mod, global.data, global.cookies);
     global.index = mod.exports;
   }
-})(this, function (exports, module, _data) {
+})(this, function (exports, module, _data, _cookies) {
   'use strict';
 
   var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+  var _cookies2 = _interopRequireDefault(_cookies);
 
   var FORM_ELEMENTS = ['year', 'month', 'day', 'country', 'remember'];
 
@@ -169,7 +173,7 @@
         var path = this.options.path || null;
         var domain = this.options.domain || null;
 
-        cookies.setItem('old_enough', true, expiry, path, domain);
+        _cookies2['default'].setItem('old_enough', true, expiry, path, domain);
       }
 
       /**
