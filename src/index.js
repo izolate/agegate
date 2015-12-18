@@ -1,4 +1,5 @@
 import * as data from './data'
+import cookies from './cookies'
 
 const FORM_ELEMENTS = ['year', 'month', 'day', 'country', 'remember']
 
