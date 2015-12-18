@@ -1,6 +1,6 @@
 {
   "name": "agegate",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Limit access to your app with an age gate",
   "main": "dist/index.js",
   "repository": {
