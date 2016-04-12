@@ -82,6 +82,7 @@ Name | Type | Default | Required | Description
 **data** | `Array` | | | Override the default and populate the `<select>` with your own data in the required data structure <sup>`[1]`</sup>
 **expiry** | `number`, `Infinity`, `Date` | `0` | | Sets the expiration of the cookie in seconds. `0` is session-only. `Infinity` is forever. Supply a [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) for any custom length of time
 **domain** | `String` | `null` | | Cookie path
+**name** | `String` | `old_enough` | | Cookie name
 
 **`[1]`** Format each country's data in an `Object`, and set the country order in the enclosing `Array`. For example:
 
@@ -101,4 +102,3 @@ data = [
 
 #### `Callback(err)`
 Pass a callback function as the second parameter. This will be called after the form submit event. The parameter `err` will return `null` if age verification succeeds, otherwise it will be an `Error` type. This is where you would typically write your action based on the response, e.g. redirect to a new URL, or hide the age gate view.
-

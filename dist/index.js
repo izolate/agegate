@@ -145,13 +145,13 @@
     }, {
       key: 'verify',
       value: function verify(formData) {
-        var ok = false,
-            legalAge = this.ages[formData.country] || this.legalAge;
+        var ok = false;
+        var legalAge = this.ages[formData.country] || this.legalAge;
         var bday = [parseInt(formData.year, 10), parseInt(formData.month, 10) || 1, parseInt(formData.day, 10) || 1].join('/');
         var age = ~ ~((new Date().getTime() - +new Date(bday)) / 31557600000);
 
         if (age >= legalAge) {
-          var expiry = !!formData.remember ? this.options.expiry : null;
+          var expiry = formData.remember ? this.options.expiry : null;
           this.saveCookie(expiry);
 
           ok = true;
@@ -173,7 +173,7 @@
         var path = this.options.path || null;
         var domain = this.options.domain || null;
 
-        _cookies2['default'].setItem('old_enough', true, expiry, path, domain);
+        _cookies2['default'].setItem(this.options.name || 'old_enough', true, expiry, path, domain);
       }
 
       /**
