@@ -41,7 +41,7 @@ export var Africa = [
   { code: 'UG', name: 'Uganda', age: 18 },
   { code: 'ZM', name: 'Zambia', age: 18 },
   { code: 'ZW', name: 'Zimbabwe', age: 18 }
-];
+]
 
 export var America = [
   { code: 'AG', name: 'Antigua and Barbuda', age: 16 },
@@ -78,7 +78,7 @@ export var America = [
   { code: 'VI', name: 'United States Virgin Islands', age: 18 },
   { code: 'UY', name: 'Uruguay', age: 18 },
   { code: 'VE', name: 'Venezuela', age: 18 }
-];
+]
 
 export var Asia = [
   { code: 'AF', name: 'Afghanistan', age: Infinity },
@@ -121,7 +121,7 @@ export var Asia = [
   { code: 'AE', name: 'United Arab Emirates', age: 21 },
   { code: 'VN', name: 'Vietnam', age: 0 },
   { code: 'YE', name: 'Yemen', age: Infinity }
-];
+]
 
 export var Europe = [
   { code: 'AL', name: 'Albania', age: 18 },
@@ -171,7 +171,7 @@ export var Europe = [
   { code: 'TR', name: 'Turkey', age: 18 },
   { code: 'UA', name: 'Ukraine', age: 18 },
   { code: 'GB', name: 'United Kingdom', age: 18 }
-];
+]
 
 export var Oceania = [
   { code: 'AS', name: 'American Samoa', age: 21 },
@@ -188,4 +188,4 @@ export var Oceania = [
   { code: 'TK', name: 'Tokelau', age: 18 },
   { code: 'TO', name: 'Tonga', age: 21 },
   { code: 'VU', name: 'Vanuatu', age: 18 }
-];
+]

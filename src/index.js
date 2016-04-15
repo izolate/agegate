@@ -4,7 +4,7 @@ import cookies from './cookies'
 const FORM_ELEMENTS = ['year', 'month', 'day', 'country', 'remember']
 
 export default class AgeGate {
-  constructor(opts, cb) {
+  constructor (opts, cb) {
     this.options = opts
     this.callback = cb
     this.isEnabled.data && this.validateData(opts.data)
@@ -17,7 +17,7 @@ export default class AgeGate {
   /**
    * Getters & Setters
    */
-  get isEnabled() {
+  get isEnabled () {
     return {
       age: !!this.options.age,
       countries: !!this.options.countries,
@@ -25,18 +25,18 @@ export default class AgeGate {
     }
   }
 
-  get legalAge() {
+  get legalAge () {
     return parseInt(this.options.age, 10) || 18
   }
 
-  get data() {
+  get data () {
     return this.options.data || data
   }
 
   /**
    * Convert age data into usable key => value
    */
-  get ages() {
+  get ages () {
     let ages = {}
 
     if (this.options.data) {
@@ -44,8 +44,7 @@ export default class AgeGate {
         total[item.code] = item.age
         return total
       }, ages)
-    }
-    else {
+    } else {
       for (let cont in this.data) {
         this.data[cont].map(country => ages[country.code] = country.age)
       }
@@ -72,30 +71,31 @@ export default class AgeGate {
   /**
    * Add countries to <select> element
    */
-  populate() {
+  populate () {
     let select = this.options.form.querySelector('select')
     select.innerHTML = '' // assume it's not empty
 
     // attempt to use user-supplied data
-    if (this.isEnabled.data)
-      this.data.forEach(country => select.appendChild( createOption(country) ))
+    if (this.isEnabled.data) this.data.forEach(country => select.appendChild(createOption(country)))
 
     // fallback to default data (continent-separated)
-    else Object.keys(data).forEach(continent => {
-      let group = document.createElement('optgroup')
-      group.label = continent
+    else {
+      Object.keys(data).forEach(continent => {
+        let group = document.createElement('optgroup')
+        group.label = continent
 
-      // create the <option> for each country
-      for (let i=0; i < data[continent].length; i++) {
-        let country = data[continent][i]
-        group.appendChild( createOption(country) )
-      }
+        // create the <option> for each country
+        for (let i = 0; i < data[continent].length; i++) {
+          let country = data[continent][i]
+          group.appendChild(createOption(country))
+        }
 
-      select.appendChild(group)
-    })
+        select.appendChild(group)
+      })
+    }
 
     // create the <option> element
-    function createOption(country) {
+    function createOption (country) {
       let option = document.createElement('option')
 
       for (let attr in country) {
@@ -114,7 +114,7 @@ export default class AgeGate {
    *
    * @param {Event} e - form submit event
    */
-  submit(e) {
+  submit (e) {
     e.preventDefault()
 
     let elements = e.target.elements
@@ -135,7 +135,7 @@ export default class AgeGate {
       return collection
     }, {})
 
-    this.respond( this.verify(this.formData) )
+    this.respond(this.verify(this.formData))
   }
 
   /**
@@ -147,7 +147,8 @@ export default class AgeGate {
    * @param {Object} formData
    */
   verify (formData) {
-    let ok = false, legalAge = this.ages[formData.country] || this.legalAge
+    let ok = false
+    let legalAge = this.ages[formData.country] || this.legalAge
     let bday = [
       parseInt(formData.year, 10),
       parseInt(formData.month, 10) || 1,
@@ -156,7 +157,7 @@ export default class AgeGate {
     let age = ~~((new Date().getTime() - +new Date(bday)) / (31557600000))
 
     if (age >= legalAge) {
-      let expiry = !!formData.remember? this.options.expiry : null
+      let expiry = formData.remember ? this.options.expiry : null
       this.saveCookie(expiry)
 
       ok = true
@@ -170,11 +171,11 @@ export default class AgeGate {
    *
    * @param {*} expiry - Cookie expiration (0|Infinity|Date)
    */
-  saveCookie (expiry=null) {
+  saveCookie (expiry = null) {
     const path = this.options.path || null
     const domain = this.options.domain || null
 
-    cookies.setItem('old_enough', true, expiry, path, domain)
+    cookies.setItem(this.options.name || 'old_enough', true, expiry, path, domain)
   }
 
   /**
@@ -183,7 +184,7 @@ export default class AgeGate {
    * @param {boolean} success - Age verification verdict
    * @param {string} message - Error message
    */
-  respond (success=false, message='Age verification failure') {
+  respond (success = false, message = 'Age verification failure') {
     if (success) this.callback(null)
     else this.callback(new Error(`[AgeGate] ${message}`))
   }
