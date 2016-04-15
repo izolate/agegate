@@ -6,14 +6,16 @@ describe('AgeGate', function() {
   describe('Instantiate class', function() {
     var gate = new AgeGate({
       form: form,
-      expiry: Infinity,
+      age: 21,
+      cookieExpiry: Infinity,
+      cookieName: 'custom_cookie_name',
       countries: true,
-      age: 21
     }, null);
 
     it('should save options', function() {
       assert.equal(gate.options.form, form);
-      assert.strictEqual(gate.options.expiry, Infinity);
+      assert.strictEqual(gate.options.cookieExpiry, Infinity);
+      assert.strictEqual(gate.options.cookieName, 'custom_cookie_name');
       assert.strictEqual(gate.options.countries, true);
       assert.strictEqual(gate.options.age, 21);
     });
@@ -32,7 +34,8 @@ describe('AgeGate', function() {
     it('should validate supplied data', function() {
       var gate = new AgeGate({
         age: 18,
-        form: form
+        form: form,
+        cookieName: 'custom_cookie_name'
       }, function(err) {
         if (err)
           assert.equal(err.message, '[AgeGate] Supplied data is invalid');
@@ -48,7 +51,8 @@ describe('AgeGate', function() {
     it('should validate ages correctly', function() {
       var gate = new AgeGate({
         age: 18,
-        form: form
+        form: form,
+        cookieName: 'custom_cookie_name'
       }, function() {});
 
       var today = new Date();
@@ -63,7 +67,7 @@ describe('AgeGate', function() {
 
   describe('Cookies', function() {
     it('should save cookies', function() {
-      assert.isTrue(Cookies.hasItem('old_enough'));
+      assert.isTrue(Cookies.hasItem('custom_cookie_name'));
     });
   });
 });

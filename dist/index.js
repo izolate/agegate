@@ -75,18 +75,20 @@
         });
 
         // fallback to default data (continent-separated)
-        else Object.keys(_data).forEach(function (continent) {
-            var group = document.createElement('optgroup');
-            group.label = continent;
+        else {
+            Object.keys(_data).forEach(function (continent) {
+              var group = document.createElement('optgroup');
+              group.label = continent;
 
-            // create the <option> for each country
-            for (var i = 0; i < _data[continent].length; i++) {
-              var country = _data[continent][i];
-              group.appendChild(createOption(country));
-            }
+              // create the <option> for each country
+              for (var i = 0; i < _data[continent].length; i++) {
+                var country = _data[continent][i];
+                group.appendChild(createOption(country));
+              }
 
-            select.appendChild(group);
-          });
+              select.appendChild(group);
+            });
+          }
 
         // create the <option> element
         function createOption(country) {
@@ -151,7 +153,7 @@
         var age = ~ ~((new Date().getTime() - +new Date(bday)) / 31557600000);
 
         if (age >= legalAge) {
-          var expiry = formData.remember ? this.options.expiry : null;
+          var expiry = formData.remember ? this.options.cookieExpiry : null;
           this.saveCookie(expiry);
 
           ok = true;
@@ -171,9 +173,9 @@
         var expiry = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
         var path = this.options.path || null;
-        var domain = this.options.domain || null;
+        var domain = this.options.cookieDomain || null;
 
-        _cookies2['default'].setItem(this.options.name || 'old_enough', true, expiry, path, domain);
+        _cookies2['default'].setItem(this.options.cookieName || 'old_enough', true, expiry, path, domain);
       }
 
       /**

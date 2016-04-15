@@ -1,3 +1,6 @@
+# 3.0.0 (2016-04-15)
+* Changes key name of cookie-related options
+
 # 2.1.0 (2016-04-15)
 * Adds option to set cookie name
 * Code style improvements

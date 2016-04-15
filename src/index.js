@@ -157,7 +157,7 @@ export default class AgeGate {
     let age = ~~((new Date().getTime() - +new Date(bday)) / (31557600000))
 
     if (age >= legalAge) {
-      let expiry = formData.remember ? this.options.expiry : null
+      let expiry = formData.remember ? this.options.cookieExpiry : null
       this.saveCookie(expiry)
 
       ok = true
@@ -173,9 +173,9 @@ export default class AgeGate {
    */
   saveCookie (expiry = null) {
     const path = this.options.path || null
-    const domain = this.options.domain || null
+    const domain = this.options.cookieDomain || null
 
-    cookies.setItem(this.options.name || 'old_enough', true, expiry, path, domain)
+    cookies.setItem(this.options.cookieName || 'old_enough', true, expiry, path, domain)
   }
 
   /**

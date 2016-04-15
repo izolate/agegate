@@ -80,9 +80,9 @@ Name | Type | Default | Required | Description
 **form** | `Element` || ✓ | `<form>` DOM element
 **countries** | `boolean` | `false` | | For alcohol-related apps, validates age against minimum legal drinking age in selected country. Setting `true` enables the `<select>` list of countries to choose from
 **data** | `Array` | | | Override the default and populate the `<select>` with your own data in the required data structure <sup>`[1]`</sup>
-**expiry** | `number`, `Infinity`, `Date` | `0` | | Sets the expiration of the cookie in seconds. `0` is session-only. `Infinity` is forever. Supply a [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) for any custom length of time
-**domain** | `String` | `null` | | Cookie path
-**name** | `String` | `old_enough` | | Cookie name
+**cookieExpiry** | `number`, `Infinity`, `Date` | `0` | | Sets the expiration of the cookie in seconds. `0` is session-only. `Infinity` is forever. Supply a [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) for any custom length of time
+**cookieDomain** | `String` | `null` | | Cookie path
+**cookieName** | `String` | `old_enough` | | Cookie name
 
 **`[1]`** Format each country's data in an `Object`, and set the country order in the enclosing `Array`. For example:
 
