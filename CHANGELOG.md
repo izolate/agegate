@@ -1,3 +1,7 @@
+# 2.1.0 (2016-04-15)
+* Adds option to set cookie name
+* Code style improvements
+
 # 1.0.0 (2015-04-27)
 ### Features
 * Added the rest of the countries to the data file
