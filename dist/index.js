@@ -172,7 +172,7 @@
       value: function saveCookie() {
         var expiry = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-        var path = this.options.path || null;
+        var path = this.options.cookiePath || null;
         var domain = this.options.cookieDomain || null;
 
         _cookies2['default'].setItem(this.options.cookieName || 'old_enough', true, expiry, path, domain);

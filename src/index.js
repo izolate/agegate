@@ -172,7 +172,7 @@ export default class AgeGate {
    * @param {*} expiry - Cookie expiration (0|Infinity|Date)
    */
   saveCookie (expiry = null) {
-    const path = this.options.path || null
+    const path = this.options.cookiePath || null
     const domain = this.options.cookieDomain || null
 
     cookies.setItem(this.options.cookieName || 'old_enough', true, expiry, path, domain)

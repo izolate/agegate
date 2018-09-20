@@ -9,6 +9,8 @@ describe('AgeGate', function() {
       age: 21,
       cookieExpiry: Infinity,
       cookieName: 'custom_cookie_name',
+      cookieDomain: 'custom_cookie_domain',
+      cookiePath: 'custom_cookie_path',
       countries: true,
     }, null);
 
@@ -16,6 +18,8 @@ describe('AgeGate', function() {
       assert.equal(gate.options.form, form);
       assert.strictEqual(gate.options.cookieExpiry, Infinity);
       assert.strictEqual(gate.options.cookieName, 'custom_cookie_name');
+      assert.strictEqual(gate.options.cookieDomain, 'custom_cookie_domain');
+      assert.strictEqual(gate.options.cookiePath, 'custom_cookie_path');
       assert.strictEqual(gate.options.countries, true);
       assert.strictEqual(gate.options.age, 21);
     });
