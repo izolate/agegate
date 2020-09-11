@@ -48,18 +48,21 @@ __`<select name='country'>`__
 Only **required** if you set `countries: true` in the options. It will be populated with a list of countries to choose from.
 
 ### JavaScript
-```
+```js
 import AgeGate from 'agegate';
 
-let options = {
+var options = {
   form: document.querySelector('form'),
   countries: true,
   expiry: Infinity
-}
+};
 
-let gate = new AgeGate(options, (err) => {
-  if (err) throw new Error('You shall not pass');
-  else console.log('Fly, you fools');
+var gate = new AgeGate(options, (err) => {
+  if (err) {
+    alert("You're too young");
+  } else {
+    alert("You're old enough")
+  }
 })
 ```
 
@@ -86,7 +89,7 @@ Name | Type | Default | Required | Description
 
 **`[1]`** Format each country's data in an `Object`, and set the country order in the enclosing `Array`. For example:
 
-```
+```js
 data = [
   {
     name: 'Country X',

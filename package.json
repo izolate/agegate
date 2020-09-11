@@ -17,11 +17,9 @@
     "build:test": "npm run js:test",
     "watch": "watch 'npm run build' ./src",
     "watch:example": "npm run jade:example && npm run js:example && npm run watchify",
-    "example": "npm run jade:example && npm run js:example",
     "jade:example": "jade -P example/index.jade -o example/",
     "watchify": "watchify example/agegate.js -o example/agegate-compiled.js -v -t babelify",
     "js:test": "browserify test/agegate.js -o test/agegate-compiled.js",
-    "js:example": "browserify example/agegate.js -t babelify -o example/agegate-compiled.js",
     "server:example": "http-server example",
     "server:test": "http-server test"
   },
@@ -40,7 +38,6 @@
     "babelify": "^6.0.2",
     "browserify": "^9.0.8",
     "http-server": "^0.8.0",
-    "jade": "^1.9.2",
     "watch": "^0.16.0",
     "watchify": "^3.1.0"
   }

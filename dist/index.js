@@ -1,8 +1,8 @@
 (function (global, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define(['exports', 'module', './data', './cookies'], factory);
-  } else if (typeof exports !== 'undefined' && typeof module !== 'undefined') {
-    factory(exports, module, require('./data'), require('./cookies'));
+  if (typeof define === "function" && define.amd) {
+    define(["exports", "module", "./data", "./cookies"], factory);
+  } else if (typeof exports !== "undefined" && typeof module !== "undefined") {
+    factory(exports, module, require("./data"), require("./cookies"));
   } else {
     var mod = {
       exports: {}
@@ -11,17 +11,17 @@
     global.index = mod.exports;
   }
 })(this, function (exports, module, _data, _cookies) {
-  'use strict';
+  "use strict";
 
-  var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+  var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   var _cookies2 = _interopRequireDefault(_cookies);
 
-  var FORM_ELEMENTS = ['year', 'month', 'day', 'country', 'remember'];
+  var FORM_ELEMENTS = ["year", "month", "day", "country", "remember"];
 
   var AgeGate = (function () {
     function AgeGate(opts, cb) {
@@ -33,15 +33,11 @@
 
       // render
       this.isEnabled.countries && this.populate();
-      this.options.form.addEventListener('submit', this.submit.bind(this));
+      this.options.form.addEventListener("submit", this.submit.bind(this));
     }
 
-    /**
-     * Getters & Setters
-     */
-
     _createClass(AgeGate, [{
-      key: 'validateData',
+      key: "validateData",
 
       /**
        * Check data structure of supplied data
@@ -53,31 +49,30 @@
 
         // ensure: containing Array and Object keys
         var ok = Array.isArray(data) || data instanceof Array;
-        ok = ok && ['code', 'name', 'age'].every(function (k) {
+        ok = ok && ["code", "name", "age"].every(function (k) {
           return data[random].hasOwnProperty(k);
         });
 
-        return ok ? data : this.respond(false, 'Supplied data is invalid');
+        return ok ? data : this.respond(false, "Supplied data is invalid");
       }
 
       /**
        * Add countries to <select> element
        */
     }, {
-      key: 'populate',
+      key: "populate",
       value: function populate() {
-        var select = this.options.form.querySelector('select');
-        select.innerHTML = ''; // assume it's not empty
+        var select = this.options.form.querySelector("select");
+        select.innerHTML = ""; // assume it's not empty
 
         // attempt to use user-supplied data
         if (this.isEnabled.data) this.data.forEach(function (country) {
           return select.appendChild(createOption(country));
         });
-
         // fallback to default data (continent-separated)
         else {
             Object.keys(_data).forEach(function (continent) {
-              var group = document.createElement('optgroup');
+              var group = document.createElement("optgroup");
               group.label = continent;
 
               // create the <option> for each country
@@ -92,7 +87,7 @@
 
         // create the <option> element
         function createOption(country) {
-          var option = document.createElement('option');
+          var option = document.createElement("option");
 
           for (var attr in country) {
             option.dataset[attr] = country[attr];
@@ -111,7 +106,7 @@
        * @param {Event} e - form submit event
        */
     }, {
-      key: 'submit',
+      key: "submit",
       value: function submit(e) {
         e.preventDefault();
 
@@ -122,7 +117,7 @@
           if (!elements[key]) return collection;
 
           switch (key) {
-            case 'remember':
+            case "remember":
               collection[key] = elements[key].checked;
               break;
             default:
@@ -145,11 +140,11 @@
        * @param {Object} formData
        */
     }, {
-      key: 'verify',
+      key: "verify",
       value: function verify(formData) {
         var ok = false;
         var legalAge = this.ages[formData.country] || this.legalAge;
-        var bday = [parseInt(formData.year, 10), parseInt(formData.month, 10) || 1, parseInt(formData.day, 10) || 1].join('/');
+        var bday = [parseInt(formData.year, 10), parseInt(formData.month, 10) || 1, parseInt(formData.day, 10) || 1].join("/");
         var age = ~ ~((new Date().getTime() - +new Date(bday)) / 31557600000);
 
         if (age >= legalAge) {
@@ -168,14 +163,14 @@
        * @param {*} expiry - Cookie expiration (0|Infinity|Date)
        */
     }, {
-      key: 'saveCookie',
+      key: "saveCookie",
       value: function saveCookie() {
         var expiry = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
         var path = this.options.path || null;
         var domain = this.options.cookieDomain || null;
 
-        _cookies2['default'].setItem(this.options.cookieName || 'old_enough', true, expiry, path, domain);
+        _cookies2["default"].setItem(this.options.cookieName || "old_enough", true, expiry, path, domain);
       }
 
       /**
@@ -185,15 +180,15 @@
        * @param {string} message - Error message
        */
     }, {
-      key: 'respond',
+      key: "respond",
       value: function respond() {
         var success = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
-        var message = arguments.length <= 1 || arguments[1] === undefined ? 'Age verification failure' : arguments[1];
+        var message = arguments.length <= 1 || arguments[1] === undefined ? "Age verification failure" : arguments[1];
 
-        if (success) this.callback(null);else this.callback(new Error('[AgeGate] ' + message));
+        if (success) this.callback(null);else this.callback(new Error("[AgeGate] " + message));
       }
     }, {
-      key: 'isEnabled',
+      key: "isEnabled",
       get: function get() {
         return {
           age: !!this.options.age,
@@ -202,12 +197,12 @@
         };
       }
     }, {
-      key: 'legalAge',
+      key: "legalAge",
       get: function get() {
         return parseInt(this.options.age, 10) || 18;
       }
     }, {
-      key: 'data',
+      key: "data",
       get: function get() {
         return this.options.data || _data;
       }
@@ -216,7 +211,7 @@
        * Convert age data into usable key => value
        */
     }, {
-      key: 'ages',
+      key: "ages",
       get: function get() {
         var ages = {};
 
