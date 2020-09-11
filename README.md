@@ -75,4 +75,4 @@ function Modal() {
 
 * * *
 
-Please file a [new issue](https://github.com/izolate/agegate/issues/new) if you find any inconsistencies in the country dataset.
+Please file a [new issue](https://github.com/izolate/agegate/issues/new) if you find any inconsistencies in the countries dataset.

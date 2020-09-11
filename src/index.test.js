@@ -35,6 +35,12 @@ test("uses 18 as default drinking age", async (t) => {
   t.falsy(result);
 });
 
+test("accepts lowercase country codes", async (t) => {
+  const result = agegate("1970-01-01", "us");
+  t.truthy(result);
+});
+
+
 test("country data is exported", async (t) => {
   t.is(countries.length, 177);
 });

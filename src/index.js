@@ -12,7 +12,7 @@ const getAge = (date) =>
 
 function agegate(date, countryCode) {
   const age = getAge(date);
-  const country = countries.find((c) => c.code === countryCode);
+  const country = countries.find((c) => c.code === countryCode.toUpperCase());
 
   // null country age value indicates alcohol prohibition
   if ((country && country.age === null) || isNaN(age)) {
