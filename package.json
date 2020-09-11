@@ -8,9 +8,6 @@
     "type": "git",
     "url": "git://github.com/izolate/agegate.git"
   },
-  "directories": {
-    "example": "example"
-  },
   "scripts": {
     "test": "ava -v",
     "test:watch": "ava --watch -v --fail-fast --serial"
