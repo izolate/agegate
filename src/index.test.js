@@ -1,4 +1,4 @@
-import agegate, { countries } from "./index.js";
+import agegate, { getData } from "./index.js";
 
 import test from "ava";
 
@@ -42,5 +42,5 @@ test("accepts lowercase country codes", async (t) => {
 
 
 test("country data is exported", async (t) => {
-  t.is(countries.length, 177);
+  t.is(getData().length, 177);
 });

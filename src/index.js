@@ -1,7 +1,8 @@
 import data from "./countries.js";
 
-// Flatten country data into a simpler map.
-export const countries = Object.values(data).reduce((a, b) => a.concat(b));
+// Flatten continent-grouped country data into a simpler map.
+export const getData = () => Object.values(data).reduce((a, b) => a.concat(b));
+const countries = getData();
 
 const DEFAULT_LEGAL_AGE = 18;
 

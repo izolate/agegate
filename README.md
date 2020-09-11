@@ -12,7 +12,7 @@ npm i agegate
 import agegate from "agegate";
 
 var user = {
-  dateOfBirth: new Date("2015-02-14"),
+  dateOfBirth: new Date("2015-02-14"), // strings are also accepted
   country: "US",
 };
 
@@ -27,7 +27,7 @@ In order to use this library with frontend UI frameworks, the underlying dataset
 
 ```js
 import React, { useState } from "react";
-import agegate, { countries } from "agegate";
+import agegate, { getData } from "agegate";
 
 function Modal() {
   const [date, setDate] = useState("");
@@ -42,6 +42,8 @@ function Modal() {
       setLegal(result);
     }
   };
+
+  const countries = getData();
 
   return (
     <div>
