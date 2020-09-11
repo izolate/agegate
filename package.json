@@ -1,6 +1,6 @@
 {
   "name": "agegate",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A simple function that verifies a date of birth against a country's legal drinking age.",
   "main": "src/index.js",
   "type": "module",
