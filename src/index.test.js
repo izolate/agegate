@@ -16,6 +16,18 @@ test("returns false if age is below legal age", async (t) => {
   t.falsy(result);
 });
 
+test("converts strings to Date", async (t) => {
+  const value = "1969-05-20";
+  const result = agegate(value, "US");
+  t.truthy(result);
+});
+
+test("returns falsy if date is invalid", async (t) => {
+  const value = "INVALID_DATE";
+  const result = agegate(value, "US");
+  t.falsy(result);
+});
+
 test("uses 18 as default drinking age", async (t) => {
   const now = new Date();
   now.setFullYear(now.getFullYear() - 10);

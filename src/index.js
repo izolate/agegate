@@ -14,8 +14,8 @@ function agegate(date, countryCode) {
   const age = getAge(date);
   const country = countries.find((c) => c.code === countryCode);
 
-  // null indicates alcohol prohibition
-  if (country && country.age === null) {
+  // null country age value indicates alcohol prohibition
+  if ((country && country.age === null) || isNaN(age)) {
     return false;
   }
 
