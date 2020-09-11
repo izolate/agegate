@@ -19,46 +19,60 @@ var user = {
 var isLegal = agegate(user.dateOfBirth, user.country); // false
 ```
 
+:warning: If an invalid date is supplied, the result will be falsy. If an invalid country code is supplied, it will validate against a default legal drinking age of 18.
+
 ### Use with frameworks (e.g. React)
 
-In order to use this library with frontend UI frameworks, this library also exposes the underlying data it uses to validate:
+In order to use this library with frontend UI frameworks, the underlying dataset used to validate is also exported.
 
 ```js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import agegate, { countries } from "agegate";
 
-function AgeGate() {
-  const [date, setDate] = useState(null);
+function Modal() {
+  const [date, setDate] = useState("");
   const [country, setCountry] = useState(countries[0].code);
   const [legal, setLegal] = useState(false);
 
-  const handleDateChange = (e) => {
-    const { target } = e;
-    setDate(target.checkValidity() ? new Date(target.value) : null);
+  const submitHandler = e => {
+    e.preventDefault();
+
+    if (date && country) {
+      const result = agegate(new Date(date), country);
+      setLegal(result);
+    }
   };
-
-  const handleCountryChange = (e) => setCountry(e.target.value);
-
-  useEffect(() => {
-    setLegal(date && country ? agegate(date, country) : false);
-  }, [date, country]);
 
   return (
     <div>
-      <form>
+      <form onSubmit={submitHandler}>
         <h3>Enter your date of birth</h3>
-        <input type="date" onClick={handleDateChange} />
+        <input
+          type="date"
+          value={date}
+          onChange={e => setDate(e.target.value)}
+        />
 
         <h3>Enter your country</h3>
-        <select onChange={handleCountryChange}>
+        <select value={country} onChange={e => setCountry(e.target.value)}>
           {countries.map(({ code, name }) => (
-            <option name={code}>{name}</option>
+            <option key={name} value={code}>
+              {name}
+            </option>
           ))}
         </select>
+
+        <button type="submit">Submit</button>
       </form>
 
-      <p>You are {legal ? "" : "NOT"} old enough!</p>
+      <p style={{ color: legal ? "green" : "red" }}>
+        RESULT: You are {legal ? "" : "NOT"} old enough!
+      </p>
     </div>
   );
 }
 ```
+
+* * *
+
+Please file a [new issue](https://github.com/izolate/agegate/issues/new) if you find any inconsistencies in the country dataset.
