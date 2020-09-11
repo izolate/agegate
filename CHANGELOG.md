@@ -1,3 +1,7 @@
+# 4.0.0 (2020-09-11)
+
+* Completely refactored library into a single validator function. Removed any elements such as cookies, HTML forms, etc. This new narrow focus modernizes the library and allows it to be used with frontend UI frameworks too.
+
 # 3.0.0 (2016-04-15)
 * Changes key name of cookie-related options
 
