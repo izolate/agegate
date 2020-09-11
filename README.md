@@ -29,6 +29,8 @@ In order to use this library with frontend UI frameworks, the underlying dataset
 import React, { useState } from "react";
 import agegate, { getData } from "agegate";
 
+const countries = getData();
+
 function Modal() {
   const [date, setDate] = useState("");
   const [country, setCountry] = useState(countries[0].code);
@@ -42,8 +44,6 @@ function Modal() {
       setLegal(result);
     }
   };
-
-  const countries = getData();
 
   return (
     <div>
