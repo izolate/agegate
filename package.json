@@ -1,8 +1,9 @@
 {
   "name": "agegate",
-  "version": "3.0.0",
-  "description": "Limit access to your app with an age gate",
-  "main": "dist/index.js",
+  "version": "4.0.0",
+  "description": "A simple function that verifies a date of birth against a country's legal drinking age.",
+  "main": "src/index.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git://github.com/izolate/agegate.git"
@@ -11,17 +12,7 @@
     "example": "example"
   },
   "scripts": {
-    "develop": "npm run watch",
-    "develop:test": "npm run build:test && npm run server:test",
-    "build": "babel --modules umd src/ --out-dir dist/",
-    "build:test": "npm run js:test",
-    "watch": "watch 'npm run build' ./src",
-    "watch:example": "npm run jade:example && npm run js:example && npm run watchify",
-    "jade:example": "jade -P example/index.jade -o example/",
-    "watchify": "watchify example/agegate.js -o example/agegate-compiled.js -v -t babelify",
-    "js:test": "browserify test/agegate.js -o test/agegate-compiled.js",
-    "server:example": "http-server example",
-    "server:test": "http-server test"
+    "test": "ava -v"
   },
   "keywords": [
     "age",
@@ -31,14 +22,9 @@
     "adult",
     "verification"
   ],
-  "author": "izolate <yoshtalwar@gmail.com>",
+  "author": "izolate <izolate@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "babel": "^5.1.8",
-    "babelify": "^6.0.2",
-    "browserify": "^9.0.8",
-    "http-server": "^0.8.0",
-    "watch": "^0.16.0",
-    "watchify": "^3.1.0"
+    "ava": "^3.12.1"
   }
 }
